@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">VR pizza</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pizza_tab">Pizza</string>
+    <string name="chicken_tab">Chicken</string>
+    <string name="bread_tab">Bread</string>
+    <string name="salads_tab">Salads</string>
+    <string name="desserts_tab">Desserts</string>
+    <string name="drinks_tab">Drinks</string>
+    <string name="sauces_tab">Sauces</string>
+    <string name="button_to_cart">To cart</string>
+    <string name="format_ruble">%1$.2f руб.</string>
+    <string name="format_size">%1$d гр.</string>
+    <string name="to_cart_success">%1$s Added to cart</string>
 </resources>

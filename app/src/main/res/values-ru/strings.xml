@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">VR pizza</string>
+    <string name="pizza_tab">Пицца</string>
+    <string name="chicken_tab">Курица</string>
+    <string name="bread_tab">Хлебцы</string>
+    <string name="salads_tab">Салаты</string>
+    <string name="desserts_tab">Десерты</string>
+    <string name="drinks_tab">Напитки</string>
+    <string name="sauces_tab">Соусы</string>
+    <string name="button_to_cart">В корзину</string>
+    <string name="format_ruble">%1$.2f руб.</string>
+    <string name="format_size">%1$d гр.</string>
+    <string name="to_cart_success">%1$s добавлено в корзину</string>
+</resources>

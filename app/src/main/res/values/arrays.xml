@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="food_tabs">
+        <item>@string/pizza_tab</item>
+        <item>@string/chicken_tab</item>
+        <item>@string/bread_tab</item>
+        <item>@string/salads_tab</item>
+        <item>@string/desserts_tab</item>
+        <item>@string/drinks_tab</item>
+        <item>@string/sauces_tab</item>
+    </string-array>
+</resources>
