@@ -53,4 +53,9 @@ public class Food {
     public void setImageId(Integer imageId) {
         this.imageId = imageId;
     }
+
+
+    public boolean containsOptionSizes(){
+        return false;
+    }
 }

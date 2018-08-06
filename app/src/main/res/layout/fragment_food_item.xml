@@ -32,11 +32,38 @@
         app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
         tools:text="Соус для пиццы, Сыр моцарелла"/>
 
+
+    <ViewStub
+        android:id="@+id/stub_food_option_sizes"
+        android:inflatedId="@+id/stub_food_option_sizes"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/tv_food_desc"
+        app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout="@layout/layout_food_options"
+        />
+
+    <ViewStub
+        android:id="@+id/stub_food_option_pizza"
+        android:inflatedId="@+id/stub_food_option_pizza"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toBottomOf="@id/stub_food_option_sizes"
+        app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout="@layout/layout_food_options"
+        />
+
+
+
     <TextView
         android:id="@+id/tv_food_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/tv_food_desc"
+        app:layout_constraintTop_toBottomOf="@id/stub_food_option_pizza"
         app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
         tools:text="8.9 руб."
         />
@@ -56,6 +83,55 @@
         app:layout_constraintBottom_toBottomOf="@id/tv_food_size"
         app:layout_constraintRight_toRightOf="parent"
         android:text="@string/button_to_cart"/>
+
+
+    <TextView
+        android:id="@+id/tv_order_count_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_order_count_right"
+        app:layout_constraintRight_toLeftOf="@id/tv_order_count_center"
+        android:background="@color/colorSelectedOption"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:text="-"
+        />
+
+    <TextView
+        android:id="@+id/tv_order_count_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_order_count_right"
+        app:layout_constraintRight_toLeftOf="@id/tv_order_count_right"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/tv_order_count_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_food_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_food_size"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/colorSelectedOption"
+        android:textSize="20sp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="+"
+        />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

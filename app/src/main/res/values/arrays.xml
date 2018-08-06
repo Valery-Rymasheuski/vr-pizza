@@ -9,4 +9,15 @@
         <item>@string/drinks_tab</item>
         <item>@string/sauces_tab</item>
     </string-array>
+    <string-array name="option_pizza">
+        <item>@string/pizza_option_classic</item>
+        <item>@string/pizza_option_thin</item>
+        <item>@string/pizza_option_cream</item>
+    </string-array>
+    <integer-array name="option_sizes">
+        <item>22</item>
+        <item>30</item>
+        <item>36</item>
+    </integer-array>
+
 </resources>

@@ -7,4 +7,8 @@ package com.example.rymasheuski.valery.vrpizza.model;
 public class Pizza extends Food {
 
 
+    @Override
+    public boolean containsOptionSizes() {
+        return true;
+    }
 }

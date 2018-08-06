@@ -5,17 +5,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rymasheuski.valery.vrpizza.FoodFragment.OnListFragmentInteractionListener;
+import com.example.rymasheuski.valery.vrpizza.component.FoodOptionsComponent;
+import com.example.rymasheuski.valery.vrpizza.component.OrderCountComponent;
 import com.example.rymasheuski.valery.vrpizza.dummy.DummyContent.DummyItem;
 import com.example.rymasheuski.valery.vrpizza.model.Food;
-import com.example.rymasheuski.valery.vrpizza.model.Pizza;
 import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +26,7 @@ import java.util.List;
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerViewAdapter.PizzaViewHolder> {
+public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerViewAdapter.FoodViewHolder> {
 
     private final List<Food> mFoodList;
     private final OnListFragmentInteractionListener mListener;
@@ -34,14 +37,14 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
     }
 
     @Override
-    public PizzaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FoodViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_food_item, parent, false);
-        return new PizzaViewHolder(view);
+        return new FoodViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final PizzaViewHolder holder, int position) {
+    public void onBindViewHolder(final FoodViewHolder holder, int position) {
         Food food = mFoodList.get(position);
         holder.mItem = food;
         holder.mNameView.setText(food.getName());
@@ -53,7 +56,17 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
             holder.mImageView.setImageResource(food.getImageId());
         }
 
+        if(food.containsOptionSizes()){
+            holder.mOptionSizesComponent.show();
+            holder.mOptionPizzaComponent.show();
+
+
+        }
+
+        holder.mOrderCountComponent.init();
+
         holder.mButton.setOnClickListener(v ->{
+            holder.mOrderCountComponent.addOne();
             String text = context.getString(R.string.to_cart_success, food.getName());
             Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
         });
@@ -75,7 +88,7 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
         return mFoodList.size();
     }
 
-    public class PizzaViewHolder extends RecyclerView.ViewHolder {
+    public class FoodViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mNameView;
         public final TextView mDescView;
@@ -83,9 +96,14 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
         public final TextView mSizeView;
         public final ImageView mImageView;
         public final Button mButton;
+        public final FoodOptionsComponent mOptionSizesComponent;
+        public final FoodOptionsComponent mOptionPizzaComponent;
+        public final OrderCountComponent mOrderCountComponent;
+
         public Food mItem;
 
-        public PizzaViewHolder(View view) {
+
+        public FoodViewHolder(View view) {
             super(view);
             mView = view;
             mNameView = view.findViewById(R.id.tv_food_name);
@@ -94,6 +112,16 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
             mSizeView = view.findViewById(R.id.tv_food_size);
             mImageView = view.findViewById(R.id.image_view_food);
             mButton = view.findViewById(R.id.button_food_to_cart);
+            mOptionSizesComponent = FoodOptionsComponent.createOptionSizes(view, R.id.stub_food_option_sizes);
+            mOptionPizzaComponent = FoodOptionsComponent.createPizzaOptions(view, R.id.stub_food_option_pizza);
+
+
+            mOrderCountComponent = OrderCountComponent.ComponentBuilder.getInstance(view)
+                    .withLeftViewId(R.id.tv_order_count_left)
+                    .withCenterViewId(R.id.tv_order_count_center)
+                    .withRightViewId(R.id.tv_order_count_right)
+                    .withAlternateViewId(R.id.button_food_to_cart)
+                    .build();
         }
 
 
