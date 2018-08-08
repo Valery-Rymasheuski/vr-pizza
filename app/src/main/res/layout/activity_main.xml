@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.rymasheuski.valery.vrpizza.MainActivity">
+    android:fitsSystemWindows="true">
 
-    <fragment
-        android:name="com.example.rymasheuski.valery.vrpizza.FoodTypesFragment"
-        android:id="@+id/food_list"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.example.rymasheuski.valery.vrpizza.MainActivity">
+
+        <include layout="@layout/layout_toolbar_main"/>
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout_food_types"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabSelectedTextColor="@android:color/holo_red_light"
+            app:tabMode="scrollable"
+            app:tabMinWidth="50dp"
+            app:tabTextAppearance="@style/FoodTabsTextStyle"
+            android:layout_below="@id/toolbar_main"
+            android:background="?attr/colorPrimary"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager_food_types"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tab_layout_food_types"
+            android:layout_above="@id/bottom_navigation_view_main"
+            />
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_navigation_view_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray"
+            app:menu="@menu/bottom_navigation_main"
+            />
+
+    </RelativeLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/drawer_navigation_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer_view"
+        app:headerLayout="@layout/drawer_header"
+        />
 
-</LinearLayout>
+</android.support.v4.widget.DrawerLayout>
+
+
+
+
+

@@ -18,4 +18,14 @@
     <string name="pizza_option_classic">Classic</string>
     <string name="pizza_option_thin">Thin</string>
     <string name="pizza_option_cream">Cream</string>
+    <string name="shopping_cart_title">Shopping cart</string>
+    <string name="format_order_total">Total: %1$f руб.</string>
+    <string name="button_order">Order</string>
+    <string name="button_clear_order">Clear order</string>
+    <string name="menu_item_shopping_cart">Shopping cart</string>
+    <string name="menu_item_food_menu">Menu</string>
+    <string name="action_toolbar_shopping_cart">Shopping cart</string>
+    <string name="nav_news">News</string>
+    <string name="nav_about_us">About us</string>
+    <string name="nav_delivery">Delivery</string>
 </resources>

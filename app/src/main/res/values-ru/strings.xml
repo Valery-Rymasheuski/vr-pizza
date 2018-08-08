@@ -16,4 +16,14 @@
     <string name="pizza_option_classic">Классика</string>
     <string name="pizza_option_thin">Тонкое</string>
     <string name="pizza_option_cream">Cream</string>
+    <string name="shopping_cart_title">Корзина</string>
+    <string name="format_order_total">Сумма заказа: %1$f руб.</string>
+    <string name="button_order">Оформить заказ</string>
+    <string name="button_clear_order">Очистить заказ</string>
+    <string name="menu_item_shopping_cart">Корзина</string>
+    <string name="menu_item_food_menu">Меню</string>
+    <string name="action_toolbar_shopping_cart">Корзина</string>
+    <string name="nav_news">Новости</string>
+    <string name="nav_about_us">О нас</string>
+    <string name="nav_delivery">Условия доставки</string>
 </resources>
