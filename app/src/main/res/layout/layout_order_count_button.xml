@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Button
+        android:id="@+id/button_food_to_cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_food_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_food_size"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="@string/button_to_cart"/>
+
+    <TextView
+        android:id="@+id/tv_order_count_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_order_count_right"
+        app:layout_constraintRight_toLeftOf="@id/tv_order_count_center"
+        android:background="@color/colorSelectedOption"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:text="-"
+        />
+
+    <TextView
+        android:id="@+id/tv_order_count_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBaseline_toBaselineOf="@id/tv_order_count_right"
+        app:layout_constraintRight_toLeftOf="@id/tv_order_count_right"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:visibility="gone"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/tv_order_count_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/tv_food_price"
+        app:layout_constraintBottom_toBottomOf="@id/tv_food_size"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@color/colorSelectedOption"
+        android:textSize="20sp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="+"
+        />
+</merge>

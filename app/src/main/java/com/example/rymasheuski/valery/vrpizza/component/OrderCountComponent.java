@@ -3,6 +3,8 @@ package com.example.rymasheuski.valery.vrpizza.component;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.rymasheuski.valery.vrpizza.R;
+
 import org.w3c.dom.Text;
 
 /**
@@ -17,10 +19,19 @@ public class OrderCountComponent {
 
     private View mAlternateView;
 
+    private OnValueChangeListener mChangeListener;
+
+
 
     private OrderCountComponent() {
     }
 
+    public void init(int value){
+        if(value >= 0) {
+            mCenterTextView.setText(String.valueOf(value));
+        }
+        init();
+    }
 
 
     public void init(){
@@ -32,12 +43,21 @@ public class OrderCountComponent {
             updateValue(true);
         });
 
+        mAlternateView.setOnClickListener( v -> {
+            addOne();
+
+        });
+
 
         checkVisibility();
     }
 
+    public void setOnChangeListener(OnValueChangeListener changeListener){
+        mChangeListener = changeListener;
+    }
 
-    public void addOne(){
+
+    private void addOne(){
         updateValue(true);
         checkVisibility();
     }
@@ -73,6 +93,9 @@ public class OrderCountComponent {
 
         }
         mCenterTextView.setText(String.valueOf(value));
+        if(mChangeListener != null){
+            mChangeListener.onChange(value);
+        }
         if(!isAddition){
             checkVisibility();
         }
@@ -116,6 +139,13 @@ public class OrderCountComponent {
             return this;
         }
 
+        public ComponentBuilder withDefaultIds(){
+            return withLeftViewId(R.id.tv_order_count_left)
+                    .withCenterViewId(R.id.tv_order_count_center)
+                    .withRightViewId(R.id.tv_order_count_right)
+                    .withAlternateViewId(R.id.button_food_to_cart);
+        }
+
 
         public OrderCountComponent build(){
             if(mRootView == null || mRightId == null || mCenterId == null
@@ -131,6 +161,12 @@ public class OrderCountComponent {
             return component;
         }
 
+    }
+
+
+    public interface OnValueChangeListener{
+
+        void onChange(int value);
     }
 
 }

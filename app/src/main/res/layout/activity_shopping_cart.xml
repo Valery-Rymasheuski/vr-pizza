@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.example.rymasheuski.valery.vrpizza.ShoppingCartActivity">
 
 
-    <TextView android:id="@+id/tv_shopping_cart_title"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="@string/shopping_cart_title"/>
+    <include layout="@layout/layout_toolbar_main" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/shopping_cart_items"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        android:background="@android:color/darker_gray"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar_main"
+        android:layout_above="@id/tv_order_total"
+        android:background="@color/colorRecyclerBackground"
+        app:layoutManager="LinearLayoutManager" />
 
     <TextView
         android:id="@+id/tv_order_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        />
+        android:layout_above="@id/button_order"/>
 
     <Button
         android:id="@+id/button_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_order"/>
+        android:layout_above="@id/button_clear_order"
+        android:text="@string/button_order" />
+
     <Button
         android:id="@+id/button_clear_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/button_clear_order"/>
+        android:layout_alignParentBottom="true"
+        android:text="@string/button_clear_order" />
 
 
-</LinearLayout>
+</RelativeLayout>
+

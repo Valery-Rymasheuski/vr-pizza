@@ -13,6 +13,8 @@ import java.util.List;
 
 public class DummyDatabaseContent {
 
+    private static long templateId = 0;
+
 
     public static List<List<Food>> getAllFoods(){
         List<List<Food>> list = new ArrayList<>();
@@ -119,10 +121,15 @@ public class DummyDatabaseContent {
     }
 
     private static void fillAttributes(Food food, String name, String desc, double price, int size){
+        food.setId(generateId());
         food.setName(name);
         food.setDescription(desc);
         food.setPrice((int) (price * 100));
         food.setSize(size);
+    }
+
+    private static long generateId(){
+        return ++templateId;
     }
 
 }

@@ -9,6 +9,6 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    android:background="@android:color/darker_gray"
+    android:background="@color/colorRecyclerBackground"
     tools:context="com.example.rymasheuski.valery.vrpizza.FoodFragment"
     tools:listitem="@layout/fragment_food_item" />

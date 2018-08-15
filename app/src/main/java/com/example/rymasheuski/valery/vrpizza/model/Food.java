@@ -1,10 +1,14 @@
 package com.example.rymasheuski.valery.vrpizza.model;
 
+import com.example.rymasheuski.valery.vrpizza.util.Saleable;
+
 /**
  * Created by valery on 2.8.18.
  */
 
-public class Food {
+public class Food extends Saleable {
+
+    private Long id;
 
     private String name;
     private String description;
@@ -13,6 +17,14 @@ public class Food {
     private Integer imageId;
 
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -57,5 +69,11 @@ public class Food {
 
     public boolean containsOptionSizes(){
         return false;
+    }
+
+
+    @Override
+    public String getOptions() {
+        return null;
     }
 }

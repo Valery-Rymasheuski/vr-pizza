@@ -19,6 +19,7 @@ import android.view.MenuItem;
 
 import com.example.rymasheuski.valery.vrpizza.model.Food;
 import com.example.rymasheuski.valery.vrpizza.model.Pizza;
+import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
 
 public class MainActivity extends AppCompatActivity  implements FoodFragment.OnListFragmentInteractionListener{
 
@@ -40,10 +41,7 @@ public class MainActivity extends AppCompatActivity  implements FoodFragment.OnL
         TabLayout tabLayout = findViewById(R.id.tab_layout_food_types);
         tabLayout.setupWithViewPager(mViewPager);
 
-        setSupportActionBar(findViewById(R.id.toolbar_main));
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+        UiUtil.prepareToolbar(this);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
 

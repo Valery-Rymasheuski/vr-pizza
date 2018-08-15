@@ -16,6 +16,7 @@ import com.example.rymasheuski.valery.vrpizza.component.FoodOptionsComponent;
 import com.example.rymasheuski.valery.vrpizza.component.OrderCountComponent;
 import com.example.rymasheuski.valery.vrpizza.dummy.DummyContent.DummyItem;
 import com.example.rymasheuski.valery.vrpizza.model.Food;
+import com.example.rymasheuski.valery.vrpizza.util.CartHelper;
 import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
 
 import java.util.ArrayList;
@@ -63,12 +64,11 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
 
         }
 
-        holder.mOrderCountComponent.init();
-
-        holder.mButton.setOnClickListener(v ->{
-            holder.mOrderCountComponent.addOne();
-            String text = context.getString(R.string.to_cart_success, food.getName());
-            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+        holder.mOrderCountComponent.init(CartHelper.getCart().getQuantity(food));
+        holder.mOrderCountComponent.setOnChangeListener(value ->{
+//            String text = context.getString(R.string.to_cart_success, food.getName());
+//            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
+            CartHelper.getCart().addProduct(food, value);
         });
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -117,10 +117,7 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
 
 
             mOrderCountComponent = OrderCountComponent.ComponentBuilder.getInstance(view)
-                    .withLeftViewId(R.id.tv_order_count_left)
-                    .withCenterViewId(R.id.tv_order_count_center)
-                    .withRightViewId(R.id.tv_order_count_right)
-                    .withAlternateViewId(R.id.button_food_to_cart)
+                    .withDefaultIds()
                     .build();
         }
 
