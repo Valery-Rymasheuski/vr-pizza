@@ -7,4 +7,5 @@
 
     <color name="colorSelectedOption">#2979FF</color>
     <color name="colorRecyclerBackground">#E0E0E0</color>
+    <color name="colorHeaderText">#E0E0E0</color>
 </resources>

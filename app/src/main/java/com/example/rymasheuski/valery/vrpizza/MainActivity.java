@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -41,9 +42,29 @@ public class MainActivity extends AppCompatActivity  implements FoodFragment.OnL
         TabLayout tabLayout = findViewById(R.id.tab_layout_food_types);
         tabLayout.setupWithViewPager(mViewPager);
 
-        UiUtil.prepareToolbar(this);
+        UiUtil.prepareToolbar(this, false, R.string.menu_title);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
+
+
+        NavigationView navigationView = findViewById(R.id.drawer_navigation_view);
+        navigationView.setNavigationItemSelectedListener( item -> {
+            switch (item.getItemId()){
+                case R.id.nav_news:
+                    startActivity(NewsActivity.class);
+                    break;
+                case R.id.nav_delivery:
+                    startActivity(DeliveryActivity.class);
+                    break;
+                case R.id.nav_about_us:
+                    startActivity(AboutUsActivity.class);
+                    break;
+                }
+
+
+            return true;
+
+        });
 
 
 

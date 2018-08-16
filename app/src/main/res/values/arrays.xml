@@ -19,5 +19,23 @@
         <item>30</item>
         <item>36</item>
     </integer-array>
+    <string-array name="cities_array">
+        <item>@string/city_minsk</item>
+        <item>@string/city_grodno</item>
+    </string-array>
+    <integer-array name="city_id_array">
+        <item>1</item>
+        <item>2</item>
+    </integer-array>
+    <string-array name="payment_type_array">
+        <item>@string/payment_type_cash</item>
+        <item>@string/payment_type_card</item>
+    </string-array>
+    <integer-array name="payment_type_id_array">
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+
+
 
 </resources>

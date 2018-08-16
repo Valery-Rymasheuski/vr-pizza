@@ -17,4 +17,16 @@
         <item name="android:background">@android:color/holo_blue_dark</item>
     </style>
 
+    <style name="PlaceOrderHeaderText" parent="@android:style/TextAppearance.Medium">
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:background">@color/colorHeaderText</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+
+    </style>
+
+
 </resources>

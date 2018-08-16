@@ -16,8 +16,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ShoppingCartActivity"
-            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".PlaceOrderActivity"
+            android:parentActivityName=".ShoppingCartActivity" />
+        <activity
+            android:name=".NewsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".DeliveryActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".AboutUsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".OrderResultActivity" android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>
