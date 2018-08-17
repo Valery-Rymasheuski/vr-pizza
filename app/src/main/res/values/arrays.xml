@@ -9,15 +9,35 @@
         <item>@string/drinks_tab</item>
         <item>@string/sauces_tab</item>
     </string-array>
-    <string-array name="option_pizza">
+    <string-array name="option_pizza_labels">
         <item>@string/pizza_option_classic</item>
         <item>@string/pizza_option_thin</item>
         <item>@string/pizza_option_cream</item>
     </string-array>
-    <integer-array name="option_sizes">
+    <integer-array name="option_pizza_id_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </integer-array>
+    <integer-array name="option_pizza_percent_array">
+        <item>0</item>
+        <item>3</item>
+        <item>7</item>
+    </integer-array>
+    <integer-array name="option_size_labels">
         <item>22</item>
         <item>30</item>
         <item>36</item>
+    </integer-array>
+    <integer-array name="option_size_id_array">
+        <item>101</item>
+        <item>102</item>
+        <item>103</item>
+    </integer-array>
+    <integer-array name="option_size_percent_array">
+        <item>0</item>
+        <item>5</item>
+        <item>10</item>
     </integer-array>
     <string-array name="cities_array">
         <item>@string/city_minsk</item>

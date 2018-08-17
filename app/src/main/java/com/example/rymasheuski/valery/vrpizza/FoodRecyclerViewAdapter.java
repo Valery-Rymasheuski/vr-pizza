@@ -16,8 +16,11 @@ import com.example.rymasheuski.valery.vrpizza.component.FoodOptionsComponent;
 import com.example.rymasheuski.valery.vrpizza.component.OrderCountComponent;
 import com.example.rymasheuski.valery.vrpizza.dummy.DummyContent.DummyItem;
 import com.example.rymasheuski.valery.vrpizza.model.Food;
+import com.example.rymasheuski.valery.vrpizza.model.FoodOption;
 import com.example.rymasheuski.valery.vrpizza.util.CartHelper;
+import com.example.rymasheuski.valery.vrpizza.util.FoodOptionsHelper;
 import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,24 +53,34 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
         holder.mItem = food;
         holder.mNameView.setText(food.getName());
         holder.mDescView.setText(food.getDescription());
-        Context context = holder.mView.getContext();
-        holder.mPriceView.setText(FormatUtil.formatPrice(food.getPrice(), context));
-        holder.mSizeView.setText(FormatUtil.formatSize(food.getSize(), context));
+
         if(food.getImageId() != null) {
             holder.mImageView.setImageResource(food.getImageId());
         }
 
         if(food.containsOptionSizes()){
-            holder.mOptionSizesComponent.show();
-            holder.mOptionPizzaComponent.show();
+            Long productId = food.getId();
+
+
+            holder.mOptionSizesComponent.setSelectedOptionListener(option -> {
+                FoodOptionsHelper.sizeOptionHelper.putOption(productId, option);
+                showPriceAndWeight(holder, food);
+            });
+            holder.mOptionSizesComponent.show(FoodOptionsHelper.sizeOptionHelper.getOption(productId));
+
+            holder.mOptionPizzaComponent.setSelectedOptionListener(option -> {
+                FoodOptionsHelper.pizzaOptionHelper.putOption(productId, option);
+                showPriceAndWeight(holder, food);
+            });
+            holder.mOptionPizzaComponent.show(FoodOptionsHelper.pizzaOptionHelper.getOption(productId));
+
 
 
         }
+        showPriceAndWeight(holder, food);
 
         holder.mOrderCountComponent.init(CartHelper.getCart().getQuantity(food));
         holder.mOrderCountComponent.setOnChangeListener(value ->{
-//            String text = context.getString(R.string.to_cart_success, food.getName());
-//            Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
             CartHelper.getCart().addProduct(food, value);
         });
 
@@ -82,6 +95,21 @@ public class FoodRecyclerViewAdapter extends RecyclerView.Adapter<FoodRecyclerVi
             }
         });
     }
+
+
+    private void showPriceAndWeight(FoodViewHolder holder, Food food){
+        Context context = holder.mView.getContext();
+
+        int price = FoodOptionsHelper.getPriceWithOptions(food.getId(), food.getPrice());
+
+        int weight = FoodOptionsHelper.getWeightWithOptions(food.getId(), food.getSize());
+
+
+        holder.mPriceView.setText(FormatUtil.formatPrice(price, context));
+        holder.mSizeView.setText(FormatUtil.formatSize(weight, context));
+    }
+
+
 
     @Override
     public int getItemCount() {

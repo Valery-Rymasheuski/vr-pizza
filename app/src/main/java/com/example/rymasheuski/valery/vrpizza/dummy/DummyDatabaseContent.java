@@ -15,9 +15,14 @@ public class DummyDatabaseContent {
 
     private static long templateId = 0;
 
+    private static List<List<Food>> list;
+
 
     public static List<List<Food>> getAllFoods(){
-        List<List<Food>> list = new ArrayList<>();
+        if(list != null){
+            return list;
+        }
+        list = new ArrayList<>();
 
         list.add(getPizzaList());
         list.add(getChickenList());

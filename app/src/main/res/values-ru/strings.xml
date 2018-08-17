@@ -12,12 +12,12 @@
     <string name="format_ruble">%1$.2f руб.</string>
     <string name="format_size">%1$d гр.</string>
     <string name="to_cart_success">%1$s добавлено в корзину</string>
-    <string name="option_size_format">%1$d см.</string>
+    <string name="option_size_format">%1$d см</string>
     <string name="pizza_option_classic">Классика</string>
     <string name="pizza_option_thin">Тонкое</string>
     <string name="pizza_option_cream">Cream</string>
     <string name="shopping_cart_title">Корзина</string>
-    <string name="format_order_total">Сумма заказа: %1$f руб.</string>
+    <string name="format_order_total">Сумма заказа: %1$s</string>
     <string name="button_order">Оформить заказ</string>
     <string name="button_clear_order">Очистить заказ</string>
     <string name="menu_item_shopping_cart">Корзина</string>

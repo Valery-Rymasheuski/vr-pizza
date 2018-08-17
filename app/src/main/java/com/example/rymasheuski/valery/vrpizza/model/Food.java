@@ -2,6 +2,9 @@ package com.example.rymasheuski.valery.vrpizza.model;
 
 import com.example.rymasheuski.valery.vrpizza.util.Saleable;
 
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by valery on 2.8.18.
  */
@@ -72,8 +75,5 @@ public class Food extends Saleable {
     }
 
 
-    @Override
-    public String getOptions() {
-        return null;
-    }
+
 }

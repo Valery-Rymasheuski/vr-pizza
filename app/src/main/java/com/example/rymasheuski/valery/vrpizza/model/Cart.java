@@ -1,7 +1,9 @@
 package com.example.rymasheuski.valery.vrpizza.model;
 
 import android.util.Log;
+import android.util.LongSparseArray;
 
+import com.example.rymasheuski.valery.vrpizza.util.FoodOptionsHelper;
 import com.example.rymasheuski.valery.vrpizza.util.Saleable;
 
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class Cart {
 
     private static final int ZERO_QUANTITY = 0;
 
-    private Map<Saleable, Integer> itemMap = new HashMap<>();
+    private LongSparseArray<CartItem> productIdToCartItemArray = new LongSparseArray<>(5);
 
 
     public Cart() {
@@ -28,14 +30,20 @@ public class Cart {
 
 
     public void addProduct(Saleable product, int quantity){
-        if(quantity > 0) {
-            itemMap.put(product, quantity);
+        CartItem item = productIdToCartItemArray.get(product.getId());
+        if(item != null){
+            item.setQuantity(quantity);
+        }else{
+            productIdToCartItemArray.put(product.getId(), new CartItem(product, quantity));
         }
+
+
     }
 
     public int getQuantity(Saleable product){
-        if(itemMap.containsKey(product)){
-            return itemMap.get(product);
+        CartItem item = productIdToCartItemArray.get(product.getId());
+        if(item != null){
+            return item.getQuantity();
         }else{
             return ZERO_QUANTITY;
         }
@@ -45,14 +53,16 @@ public class Cart {
 
     public List<CartItem> getCartItems(){
         List<CartItem> items = new ArrayList<>();
-        for(Map.Entry<Saleable, Integer> entry : itemMap.entrySet()){
-            items.add(new CartItem(entry.getKey(), entry.getValue()));
+        for(int i = 0; i < productIdToCartItemArray.size(); i++){
+            items.add(productIdToCartItemArray.valueAt(i));
         }
+
         return items;
     }
 
     public void clear(){
-        itemMap.clear();
+        productIdToCartItemArray.clear();
+        FoodOptionsHelper.clearAll();
     }
 
 

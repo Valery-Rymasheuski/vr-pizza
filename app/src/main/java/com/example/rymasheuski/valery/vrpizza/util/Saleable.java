@@ -1,6 +1,9 @@
 package com.example.rymasheuski.valery.vrpizza.util;
 
 import com.example.rymasheuski.valery.vrpizza.model.Food;
+import com.example.rymasheuski.valery.vrpizza.model.FoodOption;
+
+import java.util.List;
 
 /**
  * Created by valery on 13.8.18.
@@ -12,7 +15,6 @@ public abstract class Saleable {
 
     public abstract String getName();
 
-    public abstract String getOptions();
 
     public abstract String getDescription();
 

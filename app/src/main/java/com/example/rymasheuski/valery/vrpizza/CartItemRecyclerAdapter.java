@@ -12,6 +12,7 @@ import com.example.rymasheuski.valery.vrpizza.component.OrderCountComponent;
 import com.example.rymasheuski.valery.vrpizza.model.CartItem;
 import com.example.rymasheuski.valery.vrpizza.util.CartHelper;
 import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
+import com.example.rymasheuski.valery.vrpizza.util.Saleable;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ import java.util.List;
 public class CartItemRecyclerAdapter extends RecyclerView.Adapter<CartItemRecyclerAdapter.CartItemViewHolder> {
 
     private List<CartItem> mCartItems;
+
+    private ProductQuantityListener mQuantityListener;
 
 
     public CartItemRecyclerAdapter() {
@@ -49,13 +52,16 @@ public class CartItemRecyclerAdapter extends RecyclerView.Adapter<CartItemRecycl
 
         holder.mNameView.setText(item.getProduct().getName());
         holder.mDescView.setText(item.getProduct().getDescription());
-        holder.mOptionView.setText(item.getProduct().getOptions());
-        holder.mWeightView.setText(FormatUtil.formatSize(item.getProduct().getSize(), context));
-        holder.mPriceView.setText(FormatUtil.formatPrice(item.getProduct().getPrice(), context));
+        holder.mOptionView.setText(item.getOptionsLabel());
+        holder.mWeightView.setText(FormatUtil.formatSize(item.getWeightWithOptions(), context));
+        holder.mPriceView.setText(FormatUtil.formatPrice(item.getPriceWithOptions(), context));
 
         holder.mOrderCountComponent.init(item.getQuantity());
         holder.mOrderCountComponent.setOnChangeListener(value -> {
             CartHelper.getCart().addProduct(item.getProduct(), value);
+            if(mQuantityListener != null){
+                mQuantityListener.onChangeQuantity(item.getProduct(), value);
+            }
         });
 
 
@@ -68,6 +74,9 @@ public class CartItemRecyclerAdapter extends RecyclerView.Adapter<CartItemRecycl
     }
 
 
+    public void setQuantityListener(ProductQuantityListener mQuantityListener) {
+        this.mQuantityListener = mQuantityListener;
+    }
 
     public class CartItemViewHolder extends RecyclerView.ViewHolder{
 
@@ -92,5 +101,13 @@ public class CartItemRecyclerAdapter extends RecyclerView.Adapter<CartItemRecycl
                     .withDefaultIds()
                     .build();
         }
+    }
+
+
+    public interface ProductQuantityListener{
+
+
+        public void onChangeQuantity(Saleable product, int quantity);
+
     }
 }

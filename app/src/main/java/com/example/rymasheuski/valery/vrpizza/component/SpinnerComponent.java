@@ -1,11 +1,11 @@
 package com.example.rymasheuski.valery.vrpizza.component;
 
 import android.app.Activity;
-import android.content.Context;
+
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.example.rymasheuski.valery.vrpizza.R;
+
 
 /**
  * Created by valery on 16.8.18.
