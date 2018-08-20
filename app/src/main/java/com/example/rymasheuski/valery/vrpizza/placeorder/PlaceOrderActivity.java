@@ -1,25 +1,26 @@
-package com.example.rymasheuski.valery.vrpizza;
+package com.example.rymasheuski.valery.vrpizza.placeorder;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.example.rymasheuski.valery.vrpizza.OrderResultActivity;
+import com.example.rymasheuski.valery.vrpizza.R;
 import com.example.rymasheuski.valery.vrpizza.component.SpinnerComponent;
-import com.example.rymasheuski.valery.vrpizza.model.Order;
 import com.example.rymasheuski.valery.vrpizza.util.CartHelper;
 import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
 import com.example.rymasheuski.valery.vrpizza.util.Validator;
 
-public class PlaceOrderActivity extends AppCompatActivity {
+import java.util.List;
+
+public class PlaceOrderActivity extends AppCompatActivity implements PlaceOrderContract.MvpView {
 
     private static final String TAG = PlaceOrderActivity.class.getName();
+
+    private PlaceOrderPresenter mPresenter;
 
     private EditText mStreetEditText;
     private EditText mHouseEditText;
@@ -32,14 +33,29 @@ public class PlaceOrderActivity extends AppCompatActivity {
     private SpinnerComponent mCitySpinner;
     private SpinnerComponent mPaymentSpinner;
 
-    private Validator mValidator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_order);
 
+        initView();
 
+        mPresenter = new PlaceOrderPresenter(this);
+        mPresenter.onViewIsReady();
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mPresenter.detachView();
+        if(isFinishing()){
+            mPresenter.destroy();
+        }
+    }
+
+    private void initView(){
         UiUtil.prepareToolbar(this, true, R.string.place_order_title);
 
 
@@ -50,9 +66,8 @@ public class PlaceOrderActivity extends AppCompatActivity {
 
         Button sendButton = findViewById(R.id.button_send_order);
         sendButton.setOnClickListener(v -> {
-            if(validate()){
-                sendOrder();
-            }
+            mPresenter.onSend();
+
         });
 
 
@@ -64,29 +79,16 @@ public class PlaceOrderActivity extends AppCompatActivity {
         mDeliveryTimeEditText = findViewById(R.id.et_delivery_time);
         mCouponEditText = findViewById(R.id.et_coupon);
         mCommentEditText = findViewById(R.id.et_comment);
-
-
-
-        mValidator = Validator.ValidatorBuilder.getInstance(getApplicationContext())
-                .addField(mStreetEditText, Validator.Rule.NOT_EMPTY)
-                .addField(mHouseEditText, Validator.Rule.NOT_EMPTY)
-                .addField(mFlatEditText, Validator.Rule.NOT_EMPTY)
-                .addField(mPhoneEditText, Validator.Rule.NOT_EMPTY)
-                .addField(mEmailEditText, Validator.Rule.NOT_EMPTY)
-                .addField(mDeliveryTimeEditText, Validator.Rule.NOT_EMPTY)
-                .build();
     }
 
-
-
-    private boolean validate(){
-        return mValidator.validate();
+    @Override
+    public void goToOrderResult() {
+        Intent intent = new Intent(this, OrderResultActivity.class);
+        startActivity(intent);
     }
 
-
-
-
-    private void sendOrder(){
+    @Override
+    public Order getFormData() {
         Order order = new Order();
         order.setStreet(getValue(mStreetEditText));
         order.setHouse(getValue(mHouseEditText));
@@ -100,20 +102,55 @@ public class PlaceOrderActivity extends AppCompatActivity {
         order.setCityId(mCitySpinner.getSelectedItemId());
         order.setPaymentTypeId(mPaymentSpinner.getSelectedItemId());
 
-        order.setCartItems(CartHelper.getCart().getCartItems());
-        CartHelper.getCart().clear();
-
-        Log.d(TAG, "Order = " + order);
+        return order;
+    }
 
 
-        Intent intent = new Intent(this, OrderResultActivity.class);
-        startActivity(intent);
+    @Override
+    public void showErrors(List<Validator.ValidationResult> results) {
 
+        for(Validator.ValidationResult result : results){
+            EditText editText = getEditText((PlaceOrderContract.Field) result.getFieldCode());
+            switch (result.getRule()){
 
+                case NOT_EMPTY:
+                    setEmptyError(editText);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown rule: " + result.getRule() );
+            }
 
+        }
 
     }
 
+
+    private EditText getEditText(PlaceOrderContract.Field field){
+        switch (field){
+
+            case STREET:
+                return mStreetEditText;
+            case HOUSE:
+                return mHouseEditText;
+            case FLAT:
+                return mFlatEditText;
+            case PHONE:
+                return mPhoneEditText;
+            case EMAIL:
+                return mEmailEditText;
+            case DELIVERY_TIME:
+                return mDeliveryTimeEditText;
+                default:
+                    throw new IllegalArgumentException("Unknown field: " + field );
+        }
+    }
+
+     private void setEmptyError(EditText editText){
+        CharSequence hint = editText.getHint();
+
+        String error =  getString(R.string.error_is_empty_format, hint);
+        editText.setError(error);
+    }
 
     private String getValue(EditText et){
         return String.valueOf(et.getText());

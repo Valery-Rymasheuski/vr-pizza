@@ -20,7 +20,7 @@
             android:name=".ShoppingCartActivity"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".PlaceOrderActivity"
+            android:name=".placeorder.PlaceOrderActivity"
             android:parentActivityName=".ShoppingCartActivity" />
         <activity
             android:name=".NewsActivity"

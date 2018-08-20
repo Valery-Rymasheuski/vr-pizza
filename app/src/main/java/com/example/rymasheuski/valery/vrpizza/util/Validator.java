@@ -15,10 +15,10 @@ import java.util.List;
 
 public class Validator {
 
-    public static final int ERROR_STRING_ID_IS_EMPTY = R.string.error_is_empty_format;
-
     private List<FieldInfo> mFieldList = new ArrayList<>();
-    private Context mContext;
+
+    private List<ValidationResult> mResults = new ArrayList<>();
+
 
     public enum Rule {
         NOT_EMPTY
@@ -31,18 +31,16 @@ public class Validator {
 
     public boolean validate(){
         boolean isValid = true;
-        EditText editText;
+        String text;
+        mResults.clear();
         for(FieldInfo fieldInfo : mFieldList){
-            editText = fieldInfo.getEditText();
-            CharSequence text = editText.getText();
 
+            text = fieldInfo.getValue();
             for(Rule rule : fieldInfo.getRules()){
                 switch (rule){
                     case NOT_EMPTY:
                         if(TextUtils.isEmpty(text)){
-
-
-                            setEmptyError(editText);
+                            mResults.add(new ValidationResult(fieldInfo.getFieldCode(), rule));
                             isValid = false;
                         }
                         break;
@@ -55,12 +53,11 @@ public class Validator {
         return isValid;
     }
 
-    private void setEmptyError(EditText editText){
-        CharSequence hint = editText.getHint();
-
-        String error =  mContext.getString(ERROR_STRING_ID_IS_EMPTY, hint);
-        editText.setError(error);
+    public List<ValidationResult> getResults() {
+        return mResults;
     }
+
+
 
 
 
@@ -69,16 +66,16 @@ public class Validator {
         private Validator mValidator = new Validator();
 
 
-        private ValidatorBuilder(Context context) {
-            mValidator.mContext = context;
+        private ValidatorBuilder() {
+
         }
 
-        public static ValidatorBuilder getInstance(Context context){
-            return new ValidatorBuilder(context);
+        public static ValidatorBuilder getInstance(){
+            return new ValidatorBuilder();
         }
 
-        public ValidatorBuilder addField(EditText editText, Rule... rules){
-            mValidator.mFieldList.add(new FieldInfo(editText, rules));
+        public ValidatorBuilder addField(String value, Object fieldCode, Rule... rules){
+            mValidator.mFieldList.add(new FieldInfo(value, fieldCode, rules));
             return this;
         }
 
@@ -91,24 +88,48 @@ public class Validator {
 
 
     private static class FieldInfo{
-        private EditText mEditText;
+        private String mValue;
+        private Object mFieldCode;
         private Rule mRules[];
 
-        public FieldInfo(EditText editText, Rule[] rules) {
-            this.mEditText = editText;
+        FieldInfo(String value, Object fieldCode, Rule[] rules) {
+            this.mValue = value;
+            this.mFieldCode = fieldCode;
             this.mRules = rules;
         }
 
-        public EditText getEditText() {
-            return mEditText;
+        public String getValue() {
+            return mValue;
         }
-
-
 
         public Rule[] getRules() {
             return mRules;
         }
 
+        public Object getFieldCode() {
+            return mFieldCode;
+        }
+    }
 
+
+    public class ValidationResult {
+
+        private Object mFieldCode;
+
+        private Rule mRule;
+
+
+        private ValidationResult(Object fieldCode, Rule  rule) {
+            this.mFieldCode = fieldCode;
+            this.mRule = rule;
+        }
+
+        public Object getFieldCode() {
+            return mFieldCode;
+        }
+
+        public Rule getRule() {
+            return mRule;
+        }
     }
 }

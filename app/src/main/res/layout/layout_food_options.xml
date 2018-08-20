@@ -11,31 +11,23 @@
 
     <TextView
         android:id="@+id/food_option_first"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
+        style="@style/FoodOptionSyle"
         android:background="@drawable/selector_food_option"
         tools:text="22 см" />
 
     <TextView
         android:id="@+id/food_option_second"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        style="@style/FoodOptionSyle"
         android:background="@drawable/selector_food_option"
         android:layout_marginLeft="1dp"
-        android:gravity="center_horizontal"
         tools:text="30 см" />
 
     <TextView
         android:id="@+id/food_option_third"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        style="@style/FoodOptionSyle"
         android:background="@drawable/selector_food_option"
         android:layout_marginLeft="1dp"
-        android:gravity="center_horizontal"
+
         tools:text="36см" />
 
 

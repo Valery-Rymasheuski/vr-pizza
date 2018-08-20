@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.rymasheuski.valery.vrpizza.model.CartItem;
 import com.example.rymasheuski.valery.vrpizza.model.FoodOption;
+import com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderActivity;
 import com.example.rymasheuski.valery.vrpizza.util.CartHelper;
 import com.example.rymasheuski.valery.vrpizza.util.FoodOptionsHelper;
 import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;

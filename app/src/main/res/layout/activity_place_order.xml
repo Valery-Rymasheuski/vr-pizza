@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.rymasheuski.valery.vrpizza.PlaceOrderActivity">
+    tools:context="com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderActivity">
 
 
     <include layout="@layout/layout_toolbar_main"/>

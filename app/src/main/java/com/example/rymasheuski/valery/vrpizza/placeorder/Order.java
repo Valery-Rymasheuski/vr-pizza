@@ -1,4 +1,6 @@
-package com.example.rymasheuski.valery.vrpizza.model;
+package com.example.rymasheuski.valery.vrpizza.placeorder;
+
+import com.example.rymasheuski.valery.vrpizza.model.CartItem;
 
 import java.util.List;
 

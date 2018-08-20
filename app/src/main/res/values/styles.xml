@@ -31,5 +31,15 @@
 
     </style>
 
+    <style name="FoodOptionSyle">
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@drawable/selector_food_option</item>
+    </style>
+
 
 </resources>
