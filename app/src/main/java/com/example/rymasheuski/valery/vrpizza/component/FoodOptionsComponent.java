@@ -198,6 +198,6 @@ public class FoodOptionsComponent {
 
     public interface OnSelectedOptionListener {
 
-        public void onSelectOption(FoodOption option);
+        void onSelectOption(FoodOption option);
     }
 }

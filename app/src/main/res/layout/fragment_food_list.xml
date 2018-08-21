@@ -10,5 +10,5 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     android:background="@color/colorRecyclerBackground"
-    tools:context="com.example.rymasheuski.valery.vrpizza.FoodFragment"
+    tools:context="com.example.rymasheuski.valery.vrpizza.menu.FoodListFragment"
     tools:listitem="@layout/fragment_food_item" />

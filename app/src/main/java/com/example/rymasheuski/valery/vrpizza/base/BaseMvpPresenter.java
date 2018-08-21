@@ -13,6 +13,9 @@ public abstract class BaseMvpPresenter<T extends BaseMvpContract.MvpView> implem
         attachView(mvpView);
     }
 
+    public BaseMvpPresenter() {
+    }
+
     @Override
     public void attachView(T mvpView) {
         mMvpView = mvpView;
