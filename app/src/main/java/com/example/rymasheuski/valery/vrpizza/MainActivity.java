@@ -16,14 +16,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.rymasheuski.valery.vrpizza.cart.ShoppingCartActivity;
 import com.example.rymasheuski.valery.vrpizza.menu.FoodListFragment;
 import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity implements MainMvpContract.MvpView  {
 
     private FoodTypeFragmentPagerAdapter mFoodTypePagerAdapter;
     private ViewPager mViewPager;
     private DrawerLayout mDrawerLayout;
+    private MainPresenter mPresenter;
 
 
     @Override
@@ -32,9 +34,6 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         mViewPager = findViewById(R.id.pager_food_types);
-        String foodTabs[] = getResources().getStringArray(R.array.food_tabs);
-        mFoodTypePagerAdapter = new FoodTypeFragmentPagerAdapter(getSupportFragmentManager(), foodTabs);
-        mViewPager.setAdapter(mFoodTypePagerAdapter);
 
         TabLayout tabLayout = findViewById(R.id.tab_layout_food_types);
         tabLayout.setupWithViewPager(mViewPager);
@@ -83,6 +82,21 @@ public class MainActivity extends AppCompatActivity  {
             return true;
 
         });
+
+        mPresenter = new MainPresenter(this);
+        mPresenter.onViewIsReady();
+    }
+
+    @Override
+    public void setTabs(String[] tabs) {
+
+        mFoodTypePagerAdapter = new FoodTypeFragmentPagerAdapter(getSupportFragmentManager(), tabs);
+        mViewPager.setAdapter(mFoodTypePagerAdapter);
+    }
+
+    @Override
+    public String[] getTabsFromResources() {
+       return getResources().getStringArray(R.array.food_tabs);
     }
 
     private void startActivity(Class<?> intentClass){
@@ -125,7 +139,7 @@ public class MainActivity extends AppCompatActivity  {
         private String foodTabs[];
 
 
-        public FoodTypeFragmentPagerAdapter(FragmentManager fm, String foodTabs[])
+        FoodTypeFragmentPagerAdapter(FragmentManager fm, String foodTabs[])
         {
             super(fm);
             this.foodTabs = foodTabs;

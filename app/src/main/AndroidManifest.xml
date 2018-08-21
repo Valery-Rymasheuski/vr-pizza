@@ -17,11 +17,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ShoppingCartActivity"
+            android:name=".cart.ShoppingCartActivity"
             android:parentActivityName=".MainActivity" />
         <activity
             android:name=".placeorder.PlaceOrderActivity"
-            android:parentActivityName=".ShoppingCartActivity" />
+            android:parentActivityName=".cart.ShoppingCartActivity" />
         <activity
             android:name=".NewsActivity"
             android:parentActivityName=".MainActivity" />
