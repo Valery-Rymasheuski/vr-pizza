@@ -1,13 +1,13 @@
 package com.example.rymasheuski.valery.vrpizza.cart;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.rymasheuski.valery.vrpizza.R;
+import com.example.rymasheuski.valery.vrpizza.base.BaseMvpActivity;
 import com.example.rymasheuski.valery.vrpizza.model.CartItem;
 import com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderActivity;
 import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
@@ -15,13 +15,12 @@ import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
 
 import java.util.List;
 
-public class ShoppingCartActivity extends AppCompatActivity
+public class ShoppingCartActivity extends BaseMvpActivity<ShoppingCartPresenter>
         implements ShoppingCartContract.MvpView{
 
     private TextView mTotalTextView;
     private Button mOrderButton;
     private CartItemRecyclerAdapter mAdapter;
-    private ShoppingCartPresenter mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

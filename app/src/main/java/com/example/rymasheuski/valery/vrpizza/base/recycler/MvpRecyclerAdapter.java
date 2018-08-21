@@ -74,7 +74,6 @@ public abstract class MvpRecyclerAdapter <M, P extends BaseMvpPresenter, VH exte
     }
 
 
-
     @Override
     public void onBindViewHolder(VH holder, int position) {
         holder.bindPresenter(getPresenter(getItem(position)));

@@ -2,7 +2,6 @@ package com.example.rymasheuski.valery.vrpizza.menu;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rymasheuski.valery.vrpizza.R;
+import com.example.rymasheuski.valery.vrpizza.base.BaseMvpFragment;
 import com.example.rymasheuski.valery.vrpizza.model.Food;
 
 import java.util.List;
@@ -18,12 +18,10 @@ import java.util.List;
  * A fragment representing a list of Items.
 
  */
-public class FoodListFragment extends Fragment implements  FoodListContract.MvpView {
+public class FoodListFragment extends BaseMvpFragment<FoodListPresenter> implements  FoodListContract.MvpView {
 
 
     private static final String ARG_TAB_INDEX = "food_tab_index";
-
-    private FoodListPresenter mPresenter;
 
     private int mTabIndex;
 

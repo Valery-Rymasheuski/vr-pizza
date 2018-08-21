@@ -9,6 +9,7 @@ import android.widget.EditText;
 
 import com.example.rymasheuski.valery.vrpizza.OrderResultActivity;
 import com.example.rymasheuski.valery.vrpizza.R;
+import com.example.rymasheuski.valery.vrpizza.base.BaseMvpActivity;
 import com.example.rymasheuski.valery.vrpizza.component.SpinnerComponent;
 import com.example.rymasheuski.valery.vrpizza.util.CartHelper;
 import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
@@ -16,11 +17,9 @@ import com.example.rymasheuski.valery.vrpizza.util.Validator;
 
 import java.util.List;
 
-public class PlaceOrderActivity extends AppCompatActivity implements PlaceOrderContract.MvpView {
+public class PlaceOrderActivity extends BaseMvpActivity<PlaceOrderPresenter> implements PlaceOrderContract.MvpView {
 
     private static final String TAG = PlaceOrderActivity.class.getName();
-
-    private PlaceOrderPresenter mPresenter;
 
     private EditText mStreetEditText;
     private EditText mHouseEditText;
@@ -46,14 +45,7 @@ public class PlaceOrderActivity extends AppCompatActivity implements PlaceOrderC
 
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mPresenter.detachView();
-        if(isFinishing()){
-            mPresenter.destroy();
-        }
-    }
+
 
     private void initView(){
         UiUtil.prepareToolbar(this, true, R.string.place_order_title);
