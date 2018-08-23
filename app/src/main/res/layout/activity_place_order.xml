@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable name="viewModel"
+            type="com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderViewModel"/>
+        <variable
+            name="handler"
+            type="com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderHandler"/>
+    </data>
+
+<RelativeLayout
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderActivity">
@@ -43,18 +54,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tv_city"
+                android:text="@={viewModel.street}"
+                app:error="@{viewModel.streetError}"
                 android:hint="@string/place_order_street"/>
             <EditText
                 android:id="@+id/et_house"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/place_order_house_number"
+                android:text="@={viewModel.house}"
+                app:error="@{viewModel.houseError}"
                 android:layout_below="@id/et_street"/>
             <EditText
                 android:id="@+id/et_flat"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/place_order_flat"
+                android:text="@={viewModel.flat}"
+                app:error="@{viewModel.flatError}"
                 android:layout_below="@id/et_house"/>
 
 
@@ -70,6 +87,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_information"
                 android:hint="@string/place_order_phone"
+                android:text="@={viewModel.phone}"
+                app:error="@{viewModel.phoneError}"
                 android:inputType="phone" />
 
             <EditText
@@ -78,6 +97,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_phone"
                 android:hint="@string/place_order_email"
+                android:text="@={viewModel.email}"
+                app:error="@{viewModel.emailError}"
                 android:inputType="textEmailAddress" />
 
             <EditText
@@ -86,6 +107,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/et_email"
                 android:hint="@string/place_order_time_delivery"
+                android:text="@={viewModel.deliveryTime}"
+                app:error="@{viewModel.deliveryTimeError}"
                 android:inputType="time" />
 
             <EditText
@@ -93,6 +116,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/et_delivery_time"
+                android:text="@={viewModel.coupon}"
+                app:error="@{viewModel.couponError}"
                 android:hint="@string/place_order_exists_coupon"
                 />
             <EditText
@@ -100,6 +125,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/place_order_comment"
+                android:text="@={viewModel.comment}"
+                app:error="@{viewModel.commentError}"
                 android:layout_below="@id/et_coupon"/>
 
             <TextView
@@ -121,8 +148,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/place_order_button_send"
+        android:onClick="@{handler::onSend}"
         android:layout_alignParentBottom="true"/>
 
 
 
 </RelativeLayout>
+</layout>

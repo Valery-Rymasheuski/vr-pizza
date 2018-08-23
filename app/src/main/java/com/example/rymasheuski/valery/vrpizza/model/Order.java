@@ -1,4 +1,4 @@
-package com.example.rymasheuski.valery.vrpizza.placeorder;
+package com.example.rymasheuski.valery.vrpizza.model;
 
 import com.example.rymasheuski.valery.vrpizza.model.CartItem;
 
@@ -126,7 +126,7 @@ public class Order {
                 ", comment='" + comment + '\'' +
                 ", cityId=" + cityId +
                 ", paymentTypeId=" + paymentTypeId +
-                ", cartItems=" + cartItems.size() +
+                ", cartItems=" + (cartItems != null ? cartItems.size() : 0) +
                 '}';
     }
 }

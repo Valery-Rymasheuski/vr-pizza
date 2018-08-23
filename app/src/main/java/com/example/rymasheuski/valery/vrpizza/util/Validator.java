@@ -1,6 +1,7 @@
 package com.example.rymasheuski.valery.vrpizza.util;
 
 import android.content.Context;
+import android.databinding.ObservableField;
 import android.text.TextUtils;
 import android.widget.EditText;
 
@@ -15,9 +16,11 @@ import java.util.List;
 
 public class Validator {
 
+    private String mEmptyErrorMessage;
+
     private List<FieldInfo> mFieldList = new ArrayList<>();
 
-    private List<ValidationResult> mResults = new ArrayList<>();
+
 
 
     public enum Rule {
@@ -32,15 +35,15 @@ public class Validator {
     public boolean validate(){
         boolean isValid = true;
         String text;
-        mResults.clear();
-        for(FieldInfo fieldInfo : mFieldList){
 
+        for(FieldInfo fieldInfo : mFieldList){
+            fieldInfo.getError().set(null);
             text = fieldInfo.getValue();
             for(Rule rule : fieldInfo.getRules()){
                 switch (rule){
                     case NOT_EMPTY:
                         if(TextUtils.isEmpty(text)){
-                            mResults.add(new ValidationResult(fieldInfo.getFieldCode(), rule));
+                            fieldInfo.getError().set(mEmptyErrorMessage);
                             isValid = false;
                         }
                         break;
@@ -53,9 +56,7 @@ public class Validator {
         return isValid;
     }
 
-    public List<ValidationResult> getResults() {
-        return mResults;
-    }
+
 
 
 
@@ -74,8 +75,13 @@ public class Validator {
             return new ValidatorBuilder();
         }
 
-        public ValidatorBuilder addField(String value, Object fieldCode, Rule... rules){
-            mValidator.mFieldList.add(new FieldInfo(value, fieldCode, rules));
+        public ValidatorBuilder addField(String value, ObservableField<String> error, Rule... rules){
+            mValidator.mFieldList.add(new FieldInfo(value, error, rules));
+            return this;
+        }
+
+        public ValidatorBuilder setEmptyErrorMessage(String msg){
+            mValidator.mEmptyErrorMessage = msg;
             return this;
         }
 
@@ -89,12 +95,12 @@ public class Validator {
 
     private static class FieldInfo{
         private String mValue;
-        private Object mFieldCode;
+        private ObservableField<String> mError;
         private Rule mRules[];
 
-        FieldInfo(String value, Object fieldCode, Rule[] rules) {
+        FieldInfo(String value, ObservableField<String> error, Rule[] rules) {
             this.mValue = value;
-            this.mFieldCode = fieldCode;
+            this.mError = error;
             this.mRules = rules;
         }
 
@@ -106,30 +112,11 @@ public class Validator {
             return mRules;
         }
 
-        public Object getFieldCode() {
-            return mFieldCode;
+        public ObservableField<String> getError() {
+            return mError;
         }
     }
 
 
-    public class ValidationResult {
 
-        private Object mFieldCode;
-
-        private Rule mRule;
-
-
-        private ValidationResult(Object fieldCode, Rule  rule) {
-            this.mFieldCode = fieldCode;
-            this.mRule = rule;
-        }
-
-        public Object getFieldCode() {
-            return mFieldCode;
-        }
-
-        public Rule getRule() {
-            return mRule;
-        }
-    }
 }

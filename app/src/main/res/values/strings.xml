@@ -51,7 +51,7 @@
     <string name="city_grodno">Grodno</string>
     <string name="payment_type_cash">Cash</string>
     <string name="payment_type_card">Card</string>
-    <string name="error_is_empty_format">Field "%1$s" must not be empty</string>
+    <string name="error_is_empty">Field must not be empty</string>
     <string name="order_result_title">Order successfully sent</string>
     <string name="order_result_msg">Thanks. Order successfully sent.</string>
 </resources>

@@ -2,6 +2,9 @@ package com.example.rymasheuski.valery.vrpizza.component;
 
 import android.app.Activity;
 
+import android.databinding.ObservableField;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -17,6 +20,10 @@ public class SpinnerComponent {
 
     private int ids[];
 
+    private ObservableField<Integer> mObservableField;
+
+
+
     public SpinnerComponent(Activity activity, int spinnerId, int labelsArrayResId, int valuesArrayResId) {
         mSpinner = activity.findViewById(spinnerId);
 
@@ -29,6 +36,23 @@ public class SpinnerComponent {
         ids = activity.getResources().getIntArray(valuesArrayResId);
 
 
+    }
+
+
+
+    public void setObservableField(ObservableField<Integer> observableField) {
+        this.mObservableField = observableField;
+        mSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                mObservableField.set(ids[position]);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                mObservableField.set(null);
+            }
+        });
     }
 
     public Spinner getSpinner() {

@@ -49,7 +49,7 @@
     <string name="city_grodno">Гродно</string>
     <string name="payment_type_cash">Наличными</string>
     <string name="payment_type_card">Картой курьеру</string>
-    <string name="error_is_empty_format">Поле \'%1$s\' должно быть заполнено.</string>
+    <string name="error_is_empty">Поле должно быть заполнено.</string>
     <string name="order_result_title">Ваш заказ успешно получен</string>
     <string name="order_result_msg">Спасибо. Ваш заказ получен.</string>
 </resources>
