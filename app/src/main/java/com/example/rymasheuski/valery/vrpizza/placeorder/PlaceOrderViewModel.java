@@ -90,8 +90,7 @@ public class PlaceOrderViewModel extends AndroidViewModel {
 
     private boolean validate(Order order) {
 
-        String emptyErrorMsg = getApplication().getApplicationContext()
-                .getString(R.string.error_is_empty);
+        String emptyErrorMsg = getApplication().getString(R.string.error_is_empty);
 
         Validator validator = Validator.ValidatorBuilder.getInstance()
                 .addField(order.getStreet(), streetError, Validator.Rule.NOT_EMPTY)

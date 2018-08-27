@@ -1,6 +1,7 @@
 package com.example.rymasheuski.valery.vrpizza.model;
 
 import com.example.rymasheuski.valery.vrpizza.util.FoodOptionsHelper;
+import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
 import com.example.rymasheuski.valery.vrpizza.util.Saleable;
 
 import java.util.ArrayList;
@@ -66,6 +67,12 @@ public class CartItem {
     public int getPriceWithOptions(){
 
         return FoodOptionsHelper.getPriceWithOptions(getProduct().getId(), getProduct().getPrice());
+
+    }
+
+    public double getPriceLabel(){
+
+        return FormatUtil.formatPrice(getPriceWithOptions());
 
     }
 

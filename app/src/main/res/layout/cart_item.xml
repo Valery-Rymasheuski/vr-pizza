@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="item"
+            type="com.example.rymasheuski.valery.vrpizza.model.CartItem"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
@@ -11,6 +18,7 @@
     <TextView
         android:id="@+id/tv_cart_item_name"
         android:textStyle="bold"
+        android:text="@{item.product.name}"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_width="wrap_content"
@@ -18,6 +26,7 @@
 
     <TextView
         android:id="@+id/tv_cart_item_options"
+        android:text="@{item.optionsLabel}"
         app:layout_constraintTop_toBottomOf="@id/tv_cart_item_name"
         app:layout_constraintLeft_toLeftOf="@id/tv_cart_item_name"
         android:layout_width="wrap_content"
@@ -25,6 +34,7 @@
 
     <TextView
         android:id="@+id/tv_cart_item_desc"
+        android:text="@{item.product.description}"
         app:layout_constraintTop_toBottomOf="@id/tv_cart_item_options"
         app:layout_constraintLeft_toLeftOf="@id/tv_cart_item_name"
         android:layout_width="wrap_content"
@@ -34,6 +44,7 @@
 
     <TextView
         android:id="@+id/tv_food_price"
+        android:text="@{@string/format_ruble(item.priceLabel)}"
         app:layout_constraintTop_toBottomOf="@id/tv_cart_item_desc"
         app:layout_constraintLeft_toLeftOf="@id/tv_cart_item_name"
         android:layout_width="wrap_content"
@@ -41,6 +52,7 @@
 
     <TextView
         android:id="@+id/tv_food_size"
+        android:text="@{@string/format_size(item.weightWithOptions)}"
         app:layout_constraintTop_toBottomOf="@id/tv_food_price"
         app:layout_constraintLeft_toLeftOf="@id/tv_cart_item_name"
         android:layout_width="wrap_content"
@@ -51,4 +63,5 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

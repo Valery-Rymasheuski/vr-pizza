@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.rymasheuski.valery.vrpizza.cart.ShoppingCartViewModel"/>
+
+        <variable
+            name="handler"
+            type="com.example.rymasheuski.valery.vrpizza.cart.ShoppingCartHandler"/>
+    </data>
+
+   <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.rymasheuski.valery.vrpizza.cart.ShoppingCartActivity">
@@ -17,13 +28,15 @@
         android:layout_below="@id/toolbar_main"
         android:layout_above="@id/tv_order_total"
         android:background="@color/colorRecyclerBackground"
-        app:layoutManager="LinearLayoutManager" />
+        app:layoutManager="LinearLayoutManager"
+        app:items="@{viewModel.cartItems}"/>
 
     <TextView
         android:id="@+id/tv_order_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
+        android:text="@{@string/format_order_total(viewModel.total)}"
         android:layout_above="@id/button_order"/>
 
     <Button
@@ -31,6 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@id/button_clear_order"
+        android:enabled="@{viewModel.total > 0}"
+        android:onClick="@{handler::onOrder}"
         android:text="@string/button_order" />
 
     <Button
@@ -38,8 +53,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:onClick="@{handler::onClearOrder}"
         android:text="@string/button_clear_order" />
 
 
-</RelativeLayout>
-
+    </RelativeLayout>
+</layout>

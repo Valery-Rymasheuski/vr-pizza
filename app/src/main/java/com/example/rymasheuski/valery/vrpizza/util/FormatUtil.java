@@ -19,6 +19,11 @@ public class FormatUtil {
         return context.getString(R.string.format_ruble, displayPrice);
     }
 
+    public static double formatPrice(int price){
+        return price / 100.0;
+
+    }
+
 
     public static String formatSize(int size, Context context){
         return context.getString(R.string.format_size, size);

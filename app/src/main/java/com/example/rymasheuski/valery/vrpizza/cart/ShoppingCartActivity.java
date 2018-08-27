@@ -1,69 +1,61 @@
 package com.example.rymasheuski.valery.vrpizza.cart;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.View;
+
 
 import com.example.rymasheuski.valery.vrpizza.R;
-import com.example.rymasheuski.valery.vrpizza.base.BaseMvpActivity;
-import com.example.rymasheuski.valery.vrpizza.model.CartItem;
+
+import com.example.rymasheuski.valery.vrpizza.databinding.ActivityShoppingCartBinding;
+
 import com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderActivity;
-import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
+import com.example.rymasheuski.valery.vrpizza.util.InjectionUtil;
 import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
 
-import java.util.List;
 
-public class ShoppingCartActivity extends BaseMvpActivity<ShoppingCartPresenter>
-        implements ShoppingCartContract.MvpView{
+public class ShoppingCartActivity extends AppCompatActivity   {
 
-    private TextView mTotalTextView;
-    private Button mOrderButton;
-    private CartItemRecyclerAdapter mAdapter;
+    private ShoppingCartViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shopping_cart);
+        ActivityShoppingCartBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_shopping_cart);
+
+        mViewModel = InjectionUtil.getViewModel(this, ShoppingCartViewModel.class);
+        binding.setViewModel(mViewModel);
+        binding.setHandler(getHandler());
+
 
         UiUtil.prepareToolbar(this, true, R.string.shopping_cart_title);
 
         RecyclerView recyclerView = findViewById(R.id.shopping_cart_items);
-        mAdapter = new CartItemRecyclerAdapter();
-        mAdapter.setQuantityListener( (p, q) -> mPresenter.onChangeQuantity());
-        recyclerView.setAdapter(mAdapter);
-
-        Button clearOrderButton = findViewById(R.id.button_clear_order);
-        clearOrderButton.setOnClickListener(v ->  mPresenter.onClearOrderClicked());
-
-        mOrderButton = findViewById(R.id.button_order);
-        mOrderButton.setOnClickListener(v -> mPresenter.onOrderClicked());
-
-        mTotalTextView = findViewById(R.id.tv_order_total);
-
-        mPresenter = new ShoppingCartPresenter(this);
-        mPresenter.onViewIsReady();
-
+        CartItemRecyclerAdapter adapter = new CartItemRecyclerAdapter(mViewModel);
+        recyclerView.setAdapter(adapter);
     }
 
-    @Override
-    public void setCartItems(List<CartItem> cartItems) {
-        mAdapter.clearAndAddAll(cartItems);
-    }
 
-    @Override
     public void goToPlaceOrder() {
         Intent intent = new Intent(getApplicationContext(), PlaceOrderActivity.class);
         startActivity(intent);
     }
 
-    @Override
-    public void setTotal(int total) {
-        String text = getString(R.string.format_order_total, FormatUtil.formatPrice(total, this));
-        mTotalTextView.setText(text);
+    private ShoppingCartHandler getHandler(){
+        return new ShoppingCartHandler() {
+            @Override
+            public void onClearOrder(View view) {
+                mViewModel.onClearOrder();
+            }
 
-        mOrderButton.setEnabled(total > 0);
+            @Override
+            public void onOrder(View view) {
+                    goToPlaceOrder();
+            }
+        };
     }
 
 

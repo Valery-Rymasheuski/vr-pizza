@@ -32,13 +32,13 @@ public class PlaceOrderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityPlaceOrderBinding mBinding = DataBindingUtil.setContentView(this, R.layout.activity_place_order);
+        ActivityPlaceOrderBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_place_order);
 
         mPlaceOrderViewModel = InjectionUtil.getViewModel(this, PlaceOrderViewModel.class);
         mPlaceOrderViewModel.getOpenResultEvent().observe(this, aVoid -> goToOrderResult());
 
-        mBinding.setViewModel(mPlaceOrderViewModel);
-        mBinding.setHandler(getHandler());
+        binding.setViewModel(mPlaceOrderViewModel);
+        binding.setHandler(getHandler());
 
         UiUtil.prepareToolbar(this, true, R.string.place_order_title);
 
