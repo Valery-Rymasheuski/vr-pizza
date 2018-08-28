@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.rymasheuski.valery.vrpizza.menu.FoodViewModel"/>
+    </data>
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:layout_marginTop="5dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+        <ImageView
+            android:id="@+id/image_view_food"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            custom:src="@{viewModel.food.imageId}"
+            />
+
+        <TextView
+            android:id="@+id/tv_food_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/image_view_food"
+            app:layout_constraintLeft_toRightOf="@id/image_view_food"
+            android:textStyle="bold"
+            android:text="@{viewModel.food.name}"
+            tools:text="Маргарита"/>
+
+        <TextView
+            android:id="@+id/tv_food_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_food_name"
+            app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
+            android:text="@{viewModel.food.description}"
+            tools:text="Соус для пиццы, Сыр моцарелла"/>
+
+
+        <ViewStub
+            android:id="@+id/stub_food_option_sizes"
+            android:inflatedId="@+id/stub_food_option_sizes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@id/tv_food_desc"
+            app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout="@layout/layout_food_options"
+            />
+
+        <ViewStub
+            android:id="@+id/stub_food_option_pizza"
+            android:inflatedId="@+id/stub_food_option_pizza"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            app:layout_constraintTop_toBottomOf="@id/stub_food_option_sizes"
+            app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout="@layout/layout_food_options"
+            />
+
+
+
+        <TextView
+            android:id="@+id/tv_food_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/stub_food_option_pizza"
+            app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
+            android:text="@{@string/format_ruble(viewModel.priceWithOptions)}"
+            tools:text="8.9 руб."
+            />
+        <TextView
+            android:id="@+id/tv_food_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/tv_food_price"
+            app:layout_constraintLeft_toLeftOf="@id/tv_food_name"
+            android:text="@{@string/format_size(viewModel.weightWithOptions)}"
+            tools:text="400 гр."/>
+
+
+
+
+        <include layout="@layout/layout_order_count_button"/>
+
+
+
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
+

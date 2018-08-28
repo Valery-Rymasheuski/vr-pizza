@@ -56,6 +56,48 @@ public class FoodOptionsHelper {
         FoodOption sizeOption = sizeOptionHelper.getOption(productId);
         FoodOption pizzaOption = pizzaOptionHelper.getOption(productId);
 
+        return getSelectedOptions(sizeOption, pizzaOption);
+    }
+
+    public static int getPriceWithOptions(Long productId, int productPrice){ //TODO remove
+
+        List<FoodOption> selectedOptions = getSelectedOptions(productId);
+
+        int price = productPrice;
+
+        for(FoodOption option : selectedOptions){
+            price += price * option.getPricePercent() / 100;
+        }
+
+        return price;
+    }
+
+    public static int getWeightWithOptions(Long productId, int weight){//TODO remove
+
+       return getPriceWithOptions(productId, weight); //TODO write own
+    }
+
+
+    public static int getPriceWithOptions(FoodOption sizeOption, FoodOption pizzaOption, int productPrice){
+
+        List<FoodOption> selectedOptions = getSelectedOptions(sizeOption, pizzaOption);
+
+        int price = productPrice;
+
+        for(FoodOption option : selectedOptions){
+            price += price * option.getPricePercent() / 100;
+        }
+
+        return price;
+    }
+
+    public static int getWeightWithOptions(FoodOption sizeOption, FoodOption pizzaOption, int weight){
+
+        return getPriceWithOptions(sizeOption, pizzaOption, weight); //TODO write own
+    }
+
+
+    public static List<FoodOption> getSelectedOptions(FoodOption sizeOption, FoodOption pizzaOption){
         if(sizeOption == null && pizzaOption == null){
             return Collections.emptyList();
         }
@@ -70,23 +112,6 @@ public class FoodOptionsHelper {
         return list;
     }
 
-    public static int getPriceWithOptions(Long productId, int productPrice){
-
-        List<FoodOption> selectedOptions = getSelectedOptions(productId);
-
-        int price = productPrice;
-
-        for(FoodOption option : selectedOptions){
-            price += price * option.getPricePercent() / 100;
-        }
-
-        return price;
-    }
-
-    public static int getWeightWithOptions(Long productId, int weight){
-
-       return getPriceWithOptions(productId, weight); //TODO write own
-    }
 
 
 

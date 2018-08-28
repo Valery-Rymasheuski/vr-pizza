@@ -1,11 +1,10 @@
 package com.example.rymasheuski.valery.vrpizza.component;
 
+import android.databinding.ObservableInt;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.rymasheuski.valery.vrpizza.R;
-
-import org.w3c.dom.Text;
 
 /**
  * Created by valery on 3.8.18.
@@ -21,6 +20,8 @@ public class OrderCountComponent {
 
     private OnValueChangeListener mChangeListener;
 
+    private ObservableInt mObservableValue;
+
 
 
     private OrderCountComponent() {
@@ -31,6 +32,11 @@ public class OrderCountComponent {
             mCenterTextView.setText(String.valueOf(value));
         }
         init();
+    }
+
+    public void init(ObservableInt value){
+        mObservableValue = value;
+        init(value.get());
     }
 
 
@@ -95,6 +101,10 @@ public class OrderCountComponent {
         mCenterTextView.setText(String.valueOf(value));
         if(mChangeListener != null){
             mChangeListener.onChange(value);
+
+        }
+        if(mObservableValue != null){
+            mObservableValue.set(value);
         }
         if(!isAddition){
             checkVisibility();

@@ -1,31 +1,31 @@
 package com.example.rymasheuski.valery.vrpizza.menu;
 
 import android.content.Context;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.rymasheuski.valery.vrpizza.R;
-import com.example.rymasheuski.valery.vrpizza.base.BaseMvpFragment;
-import com.example.rymasheuski.valery.vrpizza.model.Food;
+import com.example.rymasheuski.valery.vrpizza.databinding.FragmentFoodListBinding;
+import com.example.rymasheuski.valery.vrpizza.util.InjectionUtil;
 
-import java.util.List;
 
 /**
  * A fragment representing a list of Items.
 
  */
-public class FoodListFragment extends BaseMvpFragment<FoodListPresenter> implements  FoodListContract.MvpView {
+public class FoodListFragment extends Fragment {
 
 
     private static final String ARG_TAB_INDEX = "food_tab_index";
 
     private int mTabIndex;
 
-    private FoodRecyclerViewAdapter mAdapter;
+
 
 
     /**
@@ -51,36 +51,27 @@ public class FoodListFragment extends BaseMvpFragment<FoodListPresenter> impleme
         if (getArguments() != null) {
             mTabIndex = getArguments().getInt(ARG_TAB_INDEX);
         }
-
-        mPresenter = new FoodListPresenter(this);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_food_list, container, false);
+        FragmentFoodListBinding binding = DataBindingUtil.inflate(getLayoutInflater(),
+                 R.layout.fragment_food_list, container, false);
+
+        View view = binding.getRoot();
+        FoodListViewModel viewModel = InjectionUtil.getViewModel(this, mTabIndex, FoodListViewModel.class);
+        viewModel.init(mTabIndex);
+
+        binding.setViewModel(viewModel);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
 
-            mAdapter = new FoodRecyclerViewAdapter();
-            recyclerView.setAdapter(mAdapter);
-
-            mPresenter.onViewIsReady();
+            recyclerView.setAdapter(new FoodRecyclerViewAdapter());
         }
         return view;
-    }
-
-    @Override
-    public void showList(List<Food> list) {
-        mAdapter.clearAndAddAll(list);
-    }
-
-    @Override
-    public int getTabIndex() {
-        return mTabIndex;
     }
 }

@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import android.support.annotation.NonNull;
 
 import com.example.rymasheuski.valery.vrpizza.cart.ShoppingCartViewModel;
+import com.example.rymasheuski.valery.vrpizza.menu.FoodListViewModel;
 import com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderViewModel;
 
 /**
@@ -41,6 +42,8 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
             return (T) new PlaceOrderViewModel(mApplication);
         }else if(modelClass.isAssignableFrom(ShoppingCartViewModel.class)){
             return (T) new ShoppingCartViewModel(mApplication);
+        }else if(modelClass.isAssignableFrom(FoodListViewModel.class)){
+            return (T) new FoodListViewModel(mApplication);
         }
         throw new IllegalArgumentException("Unknown ViewModel class: " + modelClass.getName());
     }

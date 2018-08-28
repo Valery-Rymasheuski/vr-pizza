@@ -40,6 +40,10 @@ public class Cart {
 
     }
 
+    public void removeProduct(Saleable product){
+        productIdToCartItemArray.delete(product.getId());
+    }
+
     public int getQuantity(Saleable product){
         CartItem item = productIdToCartItemArray.get(product.getId());
         if(item != null){

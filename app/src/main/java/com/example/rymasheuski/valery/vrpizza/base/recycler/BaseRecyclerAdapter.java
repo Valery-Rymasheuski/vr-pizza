@@ -18,17 +18,17 @@ public abstract class BaseRecyclerAdapter<T, VH extends RecyclerView.ViewHolder>
         }
 
 
-    public List<T> getDataList() {
-        return mDataList != null ? mDataList : Collections.emptyList();
-    }
+        public List<T> getDataList() {
+            return mDataList != null ? mDataList : Collections.emptyList();
+        }
 
-    @Override
-    public int getItemCount() {
-        return getDataList().size();
-    }
+        @Override
+        public int getItemCount() {
+            return getDataList().size();
+        }
 
 
-    protected T getItem(int position){
-        return getDataList().get(position);
-    }
+        protected T getItem(int position){
+            return getDataList().get(position);
+        }
 }

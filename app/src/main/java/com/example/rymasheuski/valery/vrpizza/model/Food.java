@@ -1,5 +1,6 @@
 package com.example.rymasheuski.valery.vrpizza.model;
 
+import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
 import com.example.rymasheuski.valery.vrpizza.util.Saleable;
 
 import java.util.Collections;
@@ -62,7 +63,7 @@ public class Food extends Saleable {
     }
 
     public Integer getImageId() {
-        return imageId;
+        return imageId != null ? imageId : 0;
     }
 
     public void setImageId(Integer imageId) {
@@ -72,6 +73,10 @@ public class Food extends Saleable {
 
     public boolean containsOptionSizes(){
         return false;
+    }
+
+    public double getPriceDecimal(){
+        return FormatUtil.formatPrice(price);
     }
 
 

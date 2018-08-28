@@ -1,6 +1,7 @@
 package com.example.rymasheuski.valery.vrpizza.component;
 
 import android.content.Context;
+import android.databinding.ObservableField;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.ViewStub;
@@ -30,6 +31,7 @@ public class FoodOptionsComponent {
     private ComponentType mType;
     private OnSelectedOptionListener mSelectedOptionListener;
     private FoodOption mFoodOptions[];
+    private ObservableField<FoodOption> mSelectedOption;
 
 
 
@@ -55,6 +57,12 @@ public class FoodOptionsComponent {
 
     public void setSelectedOptionListener(OnSelectedOptionListener selectedOptionListener) {
         this.mSelectedOptionListener = selectedOptionListener;
+    }
+
+    public void show(ObservableField<FoodOption> selectedOption){
+        mSelectedOption = selectedOption;
+        show(mSelectedOption.get());
+
     }
 
     public void show(FoodOption selectedOption){
@@ -86,9 +94,7 @@ public class FoodOptionsComponent {
                 unselectAll(textViews);
 
                 v.setSelected(true);
-                if(mSelectedOptionListener != null){
-                    mSelectedOptionListener.onSelectOption(textViewIdToOptionArray.get(v.getId()));
-                }
+                onSelected(textViewIdToOptionArray.get(v.getId()));
 
             });
         }
@@ -113,9 +119,7 @@ public class FoodOptionsComponent {
                 }
             }
         }else{
-            if(mSelectedOptionListener != null){
-                mSelectedOptionListener.onSelectOption(options[selectedOptionIndex]);
-            }
+            onSelected(options[selectedOptionIndex]);
         }
 
         unselectAll(textViews);
@@ -123,6 +127,16 @@ public class FoodOptionsComponent {
         textViews[selectedOptionIndex].setSelected(true);
 
     }
+
+    private void onSelected(FoodOption selectedOption){
+        if(mSelectedOptionListener != null){
+            mSelectedOptionListener.onSelectOption(selectedOption);
+        }
+        if(mSelectedOption != null){
+            mSelectedOption.set(selectedOption);
+        }
+    }
+
 
 
     private FoodOption[] getOptions(){

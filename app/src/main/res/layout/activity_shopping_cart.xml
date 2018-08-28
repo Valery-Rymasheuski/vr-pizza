@@ -29,7 +29,7 @@
         android:layout_above="@id/tv_order_total"
         android:background="@color/colorRecyclerBackground"
         app:layoutManager="LinearLayoutManager"
-        app:items="@{viewModel.cartItems}"/>
+        custom:items="@{viewModel.cartItems}"/>
 
     <TextView
         android:id="@+id/tv_order_total"
