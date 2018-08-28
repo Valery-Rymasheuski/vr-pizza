@@ -1,8 +1,11 @@
 package com.example.rymasheuski.valery.vrpizza.menu;
 
-import android.databinding.Observable;
+
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModel;
+
 import android.databinding.ObservableDouble;
-import android.databinding.ObservableField;
+
 import android.databinding.ObservableInt;
 
 import com.example.rymasheuski.valery.vrpizza.model.Food;
@@ -15,17 +18,17 @@ import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
  * Created by valery on 28.8.18.
  */
 
-public class FoodViewModel {
+public class FoodViewModel extends ViewModel {
 
     public final Food food;
 
-    public final ObservableInt quantity = new ObservableInt();
+    public final MutableLiveData<Integer> quantity = new MutableLiveData<>();
     public final ObservableDouble priceWithOptions = new ObservableDouble();
     public final ObservableInt weightWithOptions = new ObservableInt();
 
 
-    public final ObservableField<FoodOption> sizeOption = new ObservableField<>();
-    public final ObservableField<FoodOption> pizzaOption = new ObservableField<>();
+    public final MutableLiveData<FoodOption> sizeOption = new MutableLiveData<>();
+    public final MutableLiveData<FoodOption> pizzaOption = new MutableLiveData<>();
 
 
     public FoodViewModel(Food food) {
@@ -34,32 +37,25 @@ public class FoodViewModel {
         init();
 
 
-        sizeOption.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                changePriceAndWeight();
-                saveOption(FoodOptionsHelper.sizeOptionHelper, food.getId(), sizeOption);
-            }
+        sizeOption.observeForever((option) -> {
+            changePriceAndWeight();
+            saveOption(FoodOptionsHelper.sizeOptionHelper, food.getId(), sizeOption);
+
         });
 
-        pizzaOption.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                changePriceAndWeight();
-                saveOption(FoodOptionsHelper.pizzaOptionHelper, food.getId(), pizzaOption);
-            }
+        pizzaOption.observeForever((option) -> {
+            changePriceAndWeight();
+            saveOption(FoodOptionsHelper.pizzaOptionHelper, food.getId(), pizzaOption);
+
         });
 
-        quantity.addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-            @Override
-            public void onPropertyChanged(Observable observable, int i) {
-                int value = quantity.get();
-                if(value > 0) {
-                    CartHelper.getCart().addProduct(food, quantity.get());
-                }else{
-                    CartHelper.getCart().removeProduct(food);
-                }
+        quantity.observeForever((value) -> {
+            if(value != null && value > 0) {
+                CartHelper.getCart().addProduct(food, value);
+            }else{
+                CartHelper.getCart().removeProduct(food);
             }
+
         });
 
         changePriceAndWeight();
@@ -72,21 +68,22 @@ public class FoodViewModel {
 
 
     private void init(){
-        quantity.set(CartHelper.getCart().getQuantity(food));
+        int intQuantity = CartHelper.getCart().getQuantity(food);
+        quantity.setValue(intQuantity);
         Long foodId = food.getId();
         setOption(FoodOptionsHelper.pizzaOptionHelper, foodId, pizzaOption);
         setOption(FoodOptionsHelper.sizeOptionHelper, foodId, sizeOption);
 
     }
 
-    private void setOption(FoodOptionsHelper helper, Long foodId, ObservableField<FoodOption> optionField){
-        optionField.set(helper.getOption(foodId));
+    private void setOption(FoodOptionsHelper helper, Long foodId, MutableLiveData<FoodOption> optionField){
+        optionField.setValue(helper.getOption(foodId));
 
     }
 
 
-    private void saveOption(FoodOptionsHelper helper, Long foodId, ObservableField<FoodOption> optionField){
-        FoodOption option = optionField.get();
+    private void saveOption(FoodOptionsHelper helper, Long foodId, MutableLiveData<FoodOption> optionField){
+        FoodOption option = optionField.getValue();
         if(option != null) {
             helper.putOption(foodId, option);
         }
@@ -94,10 +91,12 @@ public class FoodViewModel {
 
 
     private void changePriceAndWeight(){
-        int price = FoodOptionsHelper.getPriceWithOptions(sizeOption.get(), pizzaOption.get(), food.getPrice());
+        FoodOption sizeOptionValue = sizeOption.getValue();
+        FoodOption pizzaOptionValue = pizzaOption.getValue();
+        int price = FoodOptionsHelper.getPriceWithOptions(sizeOptionValue, pizzaOptionValue, food.getPrice());
         priceWithOptions.set(FormatUtil.formatPrice(price));
 
-        int weight = FoodOptionsHelper.getWeightWithOptions(sizeOption.get(), pizzaOption.get(), food.getSize());
+        int weight = FoodOptionsHelper.getWeightWithOptions(sizeOptionValue, pizzaOptionValue, food.getSize());
         weightWithOptions.set(weight);
     }
 

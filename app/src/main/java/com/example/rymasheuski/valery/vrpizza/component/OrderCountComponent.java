@@ -1,5 +1,6 @@
 package com.example.rymasheuski.valery.vrpizza.component;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.databinding.ObservableInt;
 import android.view.View;
 import android.widget.TextView;
@@ -20,7 +21,7 @@ public class OrderCountComponent {
 
     private OnValueChangeListener mChangeListener;
 
-    private ObservableInt mObservableValue;
+    private MutableLiveData<Integer> mObservableValue;
 
 
 
@@ -34,9 +35,10 @@ public class OrderCountComponent {
         init();
     }
 
-    public void init(ObservableInt value){
+    public void init(MutableLiveData<Integer> value){
         mObservableValue = value;
-        init(value.get());
+        Integer intValue = value.getValue();
+        init(intValue != null ? intValue : 0);
     }
 
 
@@ -97,7 +99,7 @@ public class OrderCountComponent {
 
         }
         if(mObservableValue != null){
-            mObservableValue.set(value);
+            mObservableValue.setValue(value);
         }
         if(!isAddition){
             checkVisibility();

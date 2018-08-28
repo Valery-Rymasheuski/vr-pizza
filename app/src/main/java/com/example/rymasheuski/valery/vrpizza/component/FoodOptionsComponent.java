@@ -1,5 +1,6 @@
 package com.example.rymasheuski.valery.vrpizza.component;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.databinding.ObservableField;
 import android.util.SparseArray;
@@ -29,7 +30,7 @@ public class FoodOptionsComponent {
     private int mContainerId;
     private ComponentType mType;
     private FoodOption mFoodOptions[];
-    private ObservableField<FoodOption> mSelectedOption;
+    private MutableLiveData<FoodOption> mSelectedOption;
 
 
 
@@ -55,9 +56,9 @@ public class FoodOptionsComponent {
 
 
 
-    public void show(ObservableField<FoodOption> selectedOption){
+    public void show(MutableLiveData<FoodOption> selectedOption){
         mSelectedOption = selectedOption;
-        show(mSelectedOption.get());
+        show(mSelectedOption.getValue());
 
     }
 
@@ -126,7 +127,7 @@ public class FoodOptionsComponent {
 
     private void onSelected(FoodOption selectedOption){
         if(mSelectedOption != null){
-            mSelectedOption.set(selectedOption);
+            mSelectedOption.setValue(selectedOption);
         }
     }
 
