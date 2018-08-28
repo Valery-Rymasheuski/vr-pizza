@@ -7,19 +7,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import com.example.rymasheuski.valery.vrpizza.R;
 import com.example.rymasheuski.valery.vrpizza.base.recycler.BaseRecyclerAdapter;
-import com.example.rymasheuski.valery.vrpizza.base.recycler.MvpViewHolder;
 import com.example.rymasheuski.valery.vrpizza.component.FoodOptionsComponent;
 import com.example.rymasheuski.valery.vrpizza.component.OrderCountComponent;
 import com.example.rymasheuski.valery.vrpizza.databinding.FoodItemBinding;
-import com.example.rymasheuski.valery.vrpizza.model.Food;
-import com.example.rymasheuski.valery.vrpizza.model.FoodOption;
-import com.example.rymasheuski.valery.vrpizza.util.FormatUtil;
+
 
 /**
  *

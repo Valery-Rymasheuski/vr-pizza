@@ -41,18 +41,11 @@ public class OrderCountComponent {
 
 
     public void init(){
-        mLeftTextView.setOnClickListener(v -> {
-            updateValue(false);
-        });
+        mLeftTextView.setOnClickListener(v -> updateValue(false));
 
-        mRightTextView.setOnClickListener(v -> {
-            updateValue(true);
-        });
+        mRightTextView.setOnClickListener(v -> updateValue(true));
 
-        mAlternateView.setOnClickListener( v -> {
-            addOne();
-
-        });
+        mAlternateView.setOnClickListener( v -> addOne());
 
 
         checkVisibility();

@@ -22,14 +22,12 @@ public class FoodOptionsComponent {
 
     private static final int OPTION_COUNT = 3;
 
-    private enum ComponentType {OPTION_SIZE, OPTION_PIZZA};
+    private enum ComponentType {OPTION_SIZE, OPTION_PIZZA}
 
     private ViewStub mViewStub;
     private View mRootView;
-    private View mViewContainer;
     private int mContainerId;
     private ComponentType mType;
-    private OnSelectedOptionListener mSelectedOptionListener;
     private FoodOption mFoodOptions[];
     private ObservableField<FoodOption> mSelectedOption;
 
@@ -55,9 +53,7 @@ public class FoodOptionsComponent {
         return new FoodOptionsComponent(rootView, containerId, ComponentType.OPTION_PIZZA);
     }
 
-    public void setSelectedOptionListener(OnSelectedOptionListener selectedOptionListener) {
-        this.mSelectedOptionListener = selectedOptionListener;
-    }
+
 
     public void show(ObservableField<FoodOption> selectedOption){
         mSelectedOption = selectedOption;
@@ -71,8 +67,8 @@ public class FoodOptionsComponent {
             mViewStub = null;
         }
 
-        mViewContainer = mRootView.findViewById(mContainerId);
-        TextView textViews[] = getTextViews(mViewContainer);
+        View viewContainer = mRootView.findViewById(mContainerId);
+        TextView textViews[] = getTextViews(viewContainer);
 
 
         if(mFoodOptions.length != textViews.length){
@@ -129,9 +125,6 @@ public class FoodOptionsComponent {
     }
 
     private void onSelected(FoodOption selectedOption){
-        if(mSelectedOptionListener != null){
-            mSelectedOptionListener.onSelectOption(selectedOption);
-        }
         if(mSelectedOption != null){
             mSelectedOption.set(selectedOption);
         }
@@ -210,8 +203,4 @@ public class FoodOptionsComponent {
     }
 
 
-    public interface OnSelectedOptionListener {
-
-        void onSelectOption(FoodOption option);
-    }
 }

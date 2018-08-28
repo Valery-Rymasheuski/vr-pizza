@@ -51,7 +51,7 @@ public class PlaceOrderActivity extends AppCompatActivity {
     }
 
     public PlaceOrderHandler getHandler(){
-        return (v) -> { mPlaceOrderViewModel.send(); };
+        return (v) -> mPlaceOrderViewModel.send();
     }
 
 

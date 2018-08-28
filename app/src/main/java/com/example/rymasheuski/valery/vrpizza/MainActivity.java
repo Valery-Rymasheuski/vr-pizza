@@ -12,17 +12,16 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.example.rymasheuski.valery.vrpizza.base.BaseMvpActivity;
 import com.example.rymasheuski.valery.vrpizza.cart.ShoppingCartActivity;
 import com.example.rymasheuski.valery.vrpizza.menu.FoodListFragment;
 import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
 
-public class MainActivity extends BaseMvpActivity<MainPresenter> implements MainMvpContract.MvpView  {
+public class MainActivity extends AppCompatActivity {
 
-    private FoodTypeFragmentPagerAdapter mFoodTypePagerAdapter;
     private ViewPager mViewPager;
     private DrawerLayout mDrawerLayout;
 
@@ -82,19 +81,18 @@ public class MainActivity extends BaseMvpActivity<MainPresenter> implements Main
 
         });
 
-        mPresenter = new MainPresenter(this);
-        mPresenter.onViewIsReady();
+        setTabs(getTabsFromResources());
     }
 
-    @Override
-    public void setTabs(String[] tabs) {
 
-        mFoodTypePagerAdapter = new FoodTypeFragmentPagerAdapter(getSupportFragmentManager(), tabs);
+    private void setTabs(String[] tabs) {
+
+        FoodTypeFragmentPagerAdapter mFoodTypePagerAdapter = new FoodTypeFragmentPagerAdapter(getSupportFragmentManager(), tabs);
         mViewPager.setAdapter(mFoodTypePagerAdapter);
     }
 
-    @Override
-    public String[] getTabsFromResources() {
+
+    private String[] getTabsFromResources() {
        return getResources().getStringArray(R.array.food_tabs);
     }
 
