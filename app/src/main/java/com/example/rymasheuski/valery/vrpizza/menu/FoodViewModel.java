@@ -63,7 +63,7 @@ public class FoodViewModel extends ViewModel {
 
 
     public boolean isContainsOptions(){
-        return food.containsOptionSizes();
+        return food.isHasOptions();
     }
 
 

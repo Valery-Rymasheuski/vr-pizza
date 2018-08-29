@@ -1,6 +1,6 @@
 package com.example.rymasheuski.valery.vrpizza.menu;
 
-import android.content.Context;
+
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

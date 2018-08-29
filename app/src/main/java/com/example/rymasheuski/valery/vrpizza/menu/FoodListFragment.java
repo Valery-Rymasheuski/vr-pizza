@@ -21,9 +21,9 @@ import com.example.rymasheuski.valery.vrpizza.util.InjectionUtil;
 public class FoodListFragment extends Fragment {
 
 
-    private static final String ARG_TAB_INDEX = "food_tab_index";
+    private static final String ARG_FOOD_TYPE_ID = "food_type_id";
 
-    private int mTabIndex;
+    private int mFoodTypeId;
 
 
 
@@ -36,10 +36,10 @@ public class FoodListFragment extends Fragment {
     }
 
 
-    public static FoodListFragment newInstance(int tabIndex) {
+    public static FoodListFragment newInstance(int foodTypeId) {
         FoodListFragment fragment = new FoodListFragment();
         Bundle args = new Bundle();
-        args.putInt(ARG_TAB_INDEX, tabIndex);
+        args.putInt(ARG_FOOD_TYPE_ID, foodTypeId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,7 +49,7 @@ public class FoodListFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mTabIndex = getArguments().getInt(ARG_TAB_INDEX);
+            mFoodTypeId = getArguments().getInt(ARG_FOOD_TYPE_ID);
         }
     }
 
@@ -60,8 +60,8 @@ public class FoodListFragment extends Fragment {
                  R.layout.fragment_food_list, container, false);
 
         View view = binding.getRoot();
-        FoodListViewModel viewModel = InjectionUtil.getViewModel(this, mTabIndex, FoodListViewModel.class);
-        viewModel.init(mTabIndex);
+        FoodListViewModel viewModel = InjectionUtil.getViewModel(this, mFoodTypeId, FoodListViewModel.class);
+        viewModel.init(mFoodTypeId);
 
         binding.setViewModel(viewModel);
 

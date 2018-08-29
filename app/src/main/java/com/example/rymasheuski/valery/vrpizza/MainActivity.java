@@ -1,6 +1,8 @@
 package com.example.rymasheuski.valery.vrpizza;
 
+import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
@@ -18,17 +20,23 @@ import android.view.MenuItem;
 
 import com.example.rymasheuski.valery.vrpizza.cart.ShoppingCartActivity;
 import com.example.rymasheuski.valery.vrpizza.menu.FoodListFragment;
+import com.example.rymasheuski.valery.vrpizza.model.FoodType;
+import com.example.rymasheuski.valery.vrpizza.util.InjectionUtil;
 import com.example.rymasheuski.valery.vrpizza.util.UiUtil;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager mViewPager;
     private DrawerLayout mDrawerLayout;
+    private MainViewModel mViewModel;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mViewPager = findViewById(R.id.pager_food_types);
@@ -81,28 +89,21 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
-        setTabs(getTabsFromResources());
-    }
+        mViewModel = InjectionUtil.getViewModel(this, MainViewModel.class);
+        mViewModel.init();
 
+        FoodTypeFragmentPagerAdapter mFoodTypePagerAdapter = new FoodTypeFragmentPagerAdapter(getSupportFragmentManager(),
+                getApplicationContext());
+        mViewModel.getFoodTypes().observe(this, foodTypes -> mFoodTypePagerAdapter.replaceData(foodTypes));
 
-    private void setTabs(String[] tabs) {
-
-        FoodTypeFragmentPagerAdapter mFoodTypePagerAdapter = new FoodTypeFragmentPagerAdapter(getSupportFragmentManager(), tabs);
         mViewPager.setAdapter(mFoodTypePagerAdapter);
     }
 
-
-    private String[] getTabsFromResources() {
-       return getResources().getStringArray(R.array.food_tabs);
-    }
 
     private void startActivity(Class<?> intentClass){
         Intent intent = new Intent(getApplicationContext(), intentClass);
         startActivity(intent);
     }
-
-
-
 
 
     @Override
@@ -133,18 +134,27 @@ public class MainActivity extends AppCompatActivity {
 
     public static class FoodTypeFragmentPagerAdapter extends FragmentPagerAdapter {
 
-        private String foodTabs[];
+        private List<FoodType> mFoodTypes;
+        private Context mContext;
 
 
-        FoodTypeFragmentPagerAdapter(FragmentManager fm, String foodTabs[])
+        FoodTypeFragmentPagerAdapter(FragmentManager fm, Context context)
         {
             super(fm);
-            this.foodTabs = foodTabs;
+            mContext = context;
+
+        }
+
+
+        public void replaceData(List<FoodType> foodTypes){
+            mFoodTypes = foodTypes;
+            notifyDataSetChanged();
         }
 
         @Override
         public Fragment getItem(int position) {
-            return FoodListFragment.newInstance(position);
+            int foodTypeId = mFoodTypes.get(position).getId();
+            return FoodListFragment.newInstance(foodTypeId);
 
 
         }
@@ -153,19 +163,30 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public CharSequence getPageTitle(int position) {
 
-            if(foodTabs != null){
-                return foodTabs[position];
+            if(mFoodTypes != null){
+                return getStringByString(mFoodTypes.get(position).getNameKey());
             }else{
                 return null;
             }
-
-
         }
 
         @Override
         public int getCount() {
-            return foodTabs != null ? foodTabs.length : 0;
+            return mFoodTypes != null ? mFoodTypes.size() : 0;
         }
+
+
+        public String getStringByString(String key) {
+            String retString = key;
+            int id = mContext.getResources().getIdentifier(key, "string", mContext.getPackageName());
+            if (id != 0) {
+                retString = mContext.getString(id);
+            }
+
+            return retString;
+        }
+
+
     }
 
 }
