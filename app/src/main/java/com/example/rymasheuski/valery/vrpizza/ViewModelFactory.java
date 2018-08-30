@@ -11,6 +11,7 @@ import com.example.rymasheuski.valery.vrpizza.menu.FoodListViewModel;
 import com.example.rymasheuski.valery.vrpizza.model.FoodRepository;
 import com.example.rymasheuski.valery.vrpizza.model.FoodTypeRepository;
 import com.example.rymasheuski.valery.vrpizza.model.database.PizzaDatabase;
+import com.example.rymasheuski.valery.vrpizza.model.web.FoodWebservice;
 import com.example.rymasheuski.valery.vrpizza.placeorder.PlaceOrderViewModel;
 
 /**
@@ -42,8 +43,10 @@ public class ViewModelFactory extends ViewModelProvider.NewInstanceFactory {
 
         PizzaDatabase db = PizzaDatabase.getInstance(mApplication);
 
-        mFoodTypeRepository = new FoodTypeRepository(db.getFoodTypeDao());
-        mFoodRepository = new FoodRepository(db.getFoodDao());
+        FoodWebservice foodWebservice = new FoodWebservice();
+        mFoodTypeRepository = new FoodTypeRepository(db.getFoodTypeDao(), foodWebservice, db.getDataVersionDao());
+        mFoodRepository = new FoodRepository(db.getFoodDao(), foodWebservice, db.getDataVersionDao());
+
     }
 
 

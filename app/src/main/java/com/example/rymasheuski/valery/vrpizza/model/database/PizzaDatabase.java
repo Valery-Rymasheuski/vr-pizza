@@ -7,8 +7,10 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.example.rymasheuski.valery.vrpizza.model.DataVersion;
 import com.example.rymasheuski.valery.vrpizza.model.Food;
 import com.example.rymasheuski.valery.vrpizza.model.FoodType;
+import com.example.rymasheuski.valery.vrpizza.model.database.dao.DataVersionDao;
 import com.example.rymasheuski.valery.vrpizza.model.database.dao.FoodDao;
 import com.example.rymasheuski.valery.vrpizza.model.database.dao.FoodTypeDao;
 
@@ -18,7 +20,7 @@ import java.util.concurrent.Executors;
  * Created by valery on 28.8.18.
  */
 
-@Database(entities = {FoodType.class, Food.class}, version = 1, exportSchema = false)
+@Database(entities = {FoodType.class, Food.class, DataVersion.class}, version = 1, exportSchema = false)
 public abstract class PizzaDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "vr-pizza-db";
@@ -30,6 +32,8 @@ public abstract class PizzaDatabase extends RoomDatabase {
     public abstract FoodTypeDao getFoodTypeDao();
 
     public abstract FoodDao getFoodDao();
+
+    public abstract DataVersionDao getDataVersionDao();
 
 
 
@@ -67,9 +71,11 @@ public abstract class PizzaDatabase extends RoomDatabase {
             PizzaDatabase db = PizzaDatabase.getInstance(context);
 
             db.getFoodTypeDao()
-                    .insertTypes(InitialDataHelper.getInitialFoodTypes());
+                    .insert(InitialDataHelper.getInitialFoodTypes());
 
             db.getFoodDao().insert(InitialDataHelper.getInitialFoods());
+
+            db.getDataVersionDao().insert(InitialDataHelper.getInitialDataVersions());
         });
 
     }

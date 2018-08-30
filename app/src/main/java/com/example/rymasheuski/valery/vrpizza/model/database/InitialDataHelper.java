@@ -1,6 +1,9 @@
 package com.example.rymasheuski.valery.vrpizza.model.database;
 
+import android.provider.ContactsContract;
+
 import com.example.rymasheuski.valery.vrpizza.R;
+import com.example.rymasheuski.valery.vrpizza.model.DataVersion;
 import com.example.rymasheuski.valery.vrpizza.model.Food;
 import com.example.rymasheuski.valery.vrpizza.model.FoodType;
 
@@ -16,6 +19,12 @@ import java.util.List;
 public class InitialDataHelper {
 
     private InitialDataHelper() {
+    }
+
+
+    public static List<DataVersion> getInitialDataVersions(){
+        return Arrays.asList(new DataVersion(DataVersion.Entity.FOOD_TYPE),
+                new DataVersion(DataVersion.Entity.FOOD));
     }
 
     public static List<FoodType> getInitialFoodTypes(){

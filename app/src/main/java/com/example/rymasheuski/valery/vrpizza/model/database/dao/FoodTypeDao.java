@@ -3,6 +3,7 @@ package com.example.rymasheuski.valery.vrpizza.model.database.dao;
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
 
 import com.example.rymasheuski.valery.vrpizza.model.FoodType;
@@ -14,13 +15,13 @@ import java.util.List;
  */
 
 @Dao
-public interface FoodTypeDao {
+public interface FoodTypeDao extends BaseDao<FoodType> {
 
     @Query("SELECT * FROM food_type WHERE active = 1 ")
     LiveData<List<FoodType>> getActiveFoodTypes();
 
 
-    @Insert
-    void insertTypes(List<FoodType> types);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(List<FoodType> types);
 
 }
